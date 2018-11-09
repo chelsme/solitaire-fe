@@ -61,7 +61,10 @@ export default class Game extends React.Component {
           decks={this.state.tableDecks}
           tableCardClick={this.tableCardClick}
         />
-        <DrawDeck deck={this.state.drawDeck} />
+        <DrawDeck
+          deck={this.state.drawDeck}
+          tableCardClick={this.tableCardClick}
+        />
         <PlayerDeck deck={this.state.playerDeck} />
       </div>
     );
