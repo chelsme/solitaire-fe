@@ -44,12 +44,25 @@ export default class Game extends React.Component {
 
   tableCardClick = (selectedTableDeck, id) => {
     let playerDeck = [...this.state.playerDeck];
-    playerDeck.unshift(selectedTableDeck[0]);
+    if (selectedTableDeck.value[0].value) {
+    }
+    playerDeck.unshift(selectedTableDeck.value[0]);
     let tableDecks = [...this.state.tableDecks];
     tableDecks[id].value = selectedTableDeck.value.slice(1);
 
     this.setState({ tableDecks, playerDeck }, () => {
       console.log(tableDecks[id], !!tableDecks[id].value);
+    });
+  };
+
+  drawCardClick = (selectedDrawCard, id) => {
+    // console.log("Fired drawCardClick", selectedDrawCard);
+    let playerDeck = [...this.state.playerDeck];
+    playerDeck.unshift(selectedDrawCard);
+    const drawDeck = [...this.state.drawDeck].slice(1);
+
+    this.setState({ playerDeck, drawDeck }, () => {
+      console.log("setStatePlayerDeck", playerDeck);
     });
   };
 
@@ -61,11 +74,13 @@ export default class Game extends React.Component {
           decks={this.state.tableDecks}
           tableCardClick={this.tableCardClick}
         />
-        <DrawDeck
-          deck={this.state.drawDeck}
-          tableCardClick={this.tableCardClick}
-        />
-        <PlayerDeck deck={this.state.playerDeck} />
+        <div className="tableDecks">
+          <DrawDeck
+            deck={this.state.drawDeck}
+            drawCardClick={this.drawCardClick}
+          />
+          <PlayerDeck deck={this.state.playerDeck} />
+        </div>
       </div>
     );
   }

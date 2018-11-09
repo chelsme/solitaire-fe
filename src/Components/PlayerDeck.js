@@ -1,10 +1,14 @@
-import React from 'react'
-import Card from './Card'
+import React from "react";
+import Card from "./Card";
 
 export default class PlayerDeck extends React.Component {
-    render() {
-        return (
-            <div></div>
-        )
-    }
+  render() {
+    const { deck } = this.props;
+    console.log("playerDeck==>", deck);
+    return (
+      <div className="card">
+        {deck[0] ? <img src={deck[0].image} alt="oh!no" /> : null}
+      </div>
+    );
+  }
 }
