@@ -1,12 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
+import Index from './Containers/Home'
+import Profile from './Containers/Profile'
 import Game from './Containers/Game'
-
-const Index = () => <h2>Home</h2>;
-const SignUp = () => <h2>Sign Up</h2>;
-const Profile = () => <h2>Profile</h2>;
-const GlobalStats = () => <h2>Global Stats</h2>;
+import SignUp from './Containers/SignUp'
+import GlobalStats from './Containers/GlobalStats'
 
 const AppRouter = () => (
   <Router>
@@ -16,17 +15,20 @@ const AppRouter = () => (
           <li>
             <Link to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/signup/">Sign Up</Link>
-          </li>
+          {/* if logged in ? */}
           <li>
             <Link to="/profile/">Profile</Link>
           </li>
+          {/* : */}
           <li>
-            <Link to="/game/">Game</Link>
+            <Link to="/signup/">Sign Up</Link>
+          </li>
+          {/*  */}
+          <li>
+            <Link to="/game/">Play</Link>
           </li>
           <li>
-            <Link to="/globalstats/">Global Stats</Link>
+            <Link to="/globalstats/">Stats</Link>
           </li>
         </ul>
       </nav>

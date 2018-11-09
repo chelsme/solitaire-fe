@@ -5,7 +5,6 @@ export default class Profile extends React.Component {
         return (
             <div>
                 <header></header>
-                <button>New Game</button>
                 <div>
                     <h2>Stats</h2>
                 </div>
