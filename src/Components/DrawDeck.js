@@ -4,7 +4,7 @@ import Card from "./Card";
 export default class DrawDeck extends React.Component {
   render() {
     const { deck, drawCardClick, id } = this.props;
-    console.log("updatedDrawDeck==>", deck);
+    // console.log("updatedDrawDeck==>", deck);
     return (
       <div
         className="card"
@@ -12,7 +12,9 @@ export default class DrawDeck extends React.Component {
           drawCardClick(deck[0], id);
         }}
       >
-        {deck[0] ? <img src={deck[0].image} alt="oh!no" /> : null}
+        {deck[0] ? (
+          <img src={require("../images/card_back.png")} alt="oh!no" />
+        ) : null}
       </div>
     );
   }
