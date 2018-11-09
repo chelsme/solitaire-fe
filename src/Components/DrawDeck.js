@@ -5,7 +5,7 @@ export default class DrawDeck extends React.Component {
     const { deck, drawCardClick, id } = this.props;
     // console.log("updatedDrawDeck==>", deck);
     return (
-      <div className="card">
+      <div id='drawDeck' className="card">
         {deck[0] ? (
           <img
             onClick={() => {
@@ -15,8 +15,8 @@ export default class DrawDeck extends React.Component {
             alt="oh!no"
           />
         ) : (
-          <img src={require(`../images/empty_card.png`)} />
-        )}
+            <img src={require(`../images/empty_card.png`)} />
+          )}
       </div>
     );
   }

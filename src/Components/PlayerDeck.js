@@ -5,7 +5,7 @@ export default class PlayerDeck extends React.Component {
     const { deck } = this.props;
     // console.log("playerDeck==>", deck);
     return (
-      <div className="card">
+      <div id='playerDeck' className="card">
         {deck[0] ? <img src={deck[0].image} alt="oh!no" /> : null}
       </div>
     );

@@ -6,6 +6,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./images/bckgd.jpg");
+  background: cover;
 }
 
 code {
@@ -15,12 +17,33 @@ code {
 
 .tableDecks {
   margin: auto;
-  width: 75%;
+  width: 50%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
 
 .card img {
-  width: 150px;
+  width: 220px;
+  margin: 20px 10px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+li {
+  font-size: 52px;
+  color: antiquewhite;
+  float: left;
+  margin-right: 30px; 
+}
+
+a:link {
+  color: antiquewhite;
+  text-decoration: none;
+}
+a:visited {
+  color: antiquewhite;
+  text-decoration: none;
 }
