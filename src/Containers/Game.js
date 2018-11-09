@@ -51,7 +51,7 @@ export default class Game extends React.Component {
     tableDecks[id].value = selectedTableDeck.value.slice(1);
 
     this.setState({ tableDecks, playerDeck }, () => {
-      console.log(tableDecks[id], !!tableDecks[id].value);
+      //   console.log(tableDecks[id], !!tableDecks[id].value);
     });
   };
 
@@ -62,7 +62,7 @@ export default class Game extends React.Component {
     const drawDeck = [...this.state.drawDeck].slice(1);
 
     this.setState({ playerDeck, drawDeck }, () => {
-      console.log("setStatePlayerDeck", playerDeck);
+      //   console.log("setStatePlayerDeck", playerDeck);
     });
   };
 
