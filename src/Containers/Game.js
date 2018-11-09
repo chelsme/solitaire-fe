@@ -20,41 +20,36 @@ export default class Game extends React.Component {
         });
       })
       .then(() => {
-        this.updateDecks();
+        this.initDecksState();
       });
   }
 
-  updateDecks = () => {
+  initDecksState = () => {
     const shuffleDecks = [...this.state.deck].sort(function() {
       return 0.5 - Math.random();
     });
-    this.setState(
-      {
-        tableDecks: [
-          shuffleDecks.splice(0, 6),
-          shuffleDecks.splice(0, 6),
-          shuffleDecks.splice(0, 6),
-          shuffleDecks.splice(0, 6),
-          shuffleDecks.splice(0, 6),
-          shuffleDecks.splice(0, 6)
-        ],
-        drawDeck: shuffleDecks.splice(0, 15),
-        playerDeck: shuffleDecks.splice(0, 1)
-      },
-      () => {
-        console.log("==init state=>", this.state.playerDeck);
-      }
-    );
+    this.setState({
+      tableDecks: [
+        { value: shuffleDecks.splice(0, 6) },
+        { value: shuffleDecks.splice(0, 6) },
+        { value: shuffleDecks.splice(0, 6) },
+        { value: shuffleDecks.splice(0, 6) },
+        { value: shuffleDecks.splice(0, 6) },
+        { value: shuffleDecks.splice(0, 6) }
+      ],
+      drawDeck: shuffleDecks.splice(0, 15),
+      playerDeck: shuffleDecks.splice(0, 1)
+    });
   };
 
   tableCardClick = (selectedTableDeck, id) => {
     let playerDeck = [...this.state.playerDeck];
     playerDeck.unshift(selectedTableDeck[0]);
     let tableDecks = [...this.state.tableDecks];
-    tableDecks[id] = selectedTableDeck.slice(1);
+    tableDecks[id].value = selectedTableDeck.value.slice(1);
 
     this.setState({ tableDecks, playerDeck }, () => {
-      console.log(this.state);
+      console.log(tableDecks[id], !!tableDecks[id].value);
     });
   };
 
