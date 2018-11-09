@@ -1,15 +1,18 @@
-import React from 'react'
+import React from "react";
 
 export default class TableDeck extends React.Component {
-    render() {
-        // const card = this.props.deck[n++.toString()]
-        const deckstring = Number(this.props.id) + 1
-        // const decknum = deckstring.tostring()
-        const cardDeck = this.props.deck[deckstring.toString()]
-        return (
-            <div className='card' onClick={() => { this.props.tableCardClick(cardDeck, deckstring) }}>
-                {cardDeck ? <img src={cardDeck[0].image} /> : null}
-            </div>
-        )
-    }
+  render() {
+    const { deck, tableCardClick, id } = this.props;
+    console.log(deck);
+    return (
+      <div
+        className="card"
+        onClick={() => {
+          tableCardClick(deck, id);
+        }}
+      >
+        {deck ? <img src={deck[0].image} alt="oh!no" /> : null}
+      </div>
+    );
+  }
 }
