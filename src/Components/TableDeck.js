@@ -3,7 +3,6 @@ import React from "react";
 export default class TableDeck extends React.Component {
     render() {
         const { deck, tableCardClick, id } = this.props;
-        // console.log("updated==>", deck.value);
         return (
             <div className="card">
                 {deck.value[0] ? (
@@ -15,7 +14,7 @@ export default class TableDeck extends React.Component {
                         alt="oh!no"
                     />
                 ) : (
-                        <img src={require(`../images/skull_${id + 1}.png`)} />
+                        <img src={require(`../images/skull_${id + 1}.png`)} alt='no!' />
                     )}
             </div>
         );
