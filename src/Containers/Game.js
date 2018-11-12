@@ -10,7 +10,7 @@ export default class Game extends React.Component {
         drawDeck: [],
         playerDeck: [],
         timer: 0, 
-        mode: 'medium'
+        mode: ''
     };
 
     componentDidMount() {
@@ -83,7 +83,7 @@ export default class Game extends React.Component {
                 });
                 break
             default:
-                console.log('default case statement issue')
+                break
         }
     }
 
@@ -131,9 +131,20 @@ export default class Game extends React.Component {
         return 'Timer: ' + minutes + ":" + seconds
     }
 
+    handleMode = (mode) => {
+        this.setState({ mode })
+        this.componentDidMount()
+    }
+
     render() {
-        console.log(this.state)
-        return (
+        return (this.state.mode === '') ? (
+            <div className='mode'>
+                <h3>Choose Game Difficulty</h3>
+                <button onClick={() => this.handleMode('easy')}>Easy</button>
+                <button onClick={() => this.handleMode('medium')}>Medium</button>
+                <button onClick={() => this.handleMode('hard')}>Hard</button>
+            </div>
+        ) : (
             <div>
                 <div id='gameTimer'>{this.timer()}</div>
                 <TableDecks

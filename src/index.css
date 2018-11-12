@@ -88,3 +88,10 @@ input {
   left: 1200px;
   top: 50px;
 }
+
+.mode {
+  margin: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
