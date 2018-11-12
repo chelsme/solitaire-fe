@@ -22,7 +22,8 @@ export default class Game extends React.Component {
         tableDecks: [],
         drawDeck: [],
         playerDeck: [],
-        timer: 0
+        timer: 0, 
+        mode: ''
     };
 
     componentDidMount() {
@@ -47,19 +48,58 @@ export default class Game extends React.Component {
         const shuffleDecks = [...this.state.deck].sort(function () {
             return 0.5 - Math.random();
         });
-        this.setState({
-            tableDecks: [
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) }
-            ],
-            drawDeck: shuffleDecks.splice(0, 15),
-            playerDeck: shuffleDecks.splice(0, 1)
-        });
-    };
+        const mode = this.state.mode
+        switch (mode)  {
+            case 'medium':
+                this.setState({
+                    tableDecks: [
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) }
+                    ],
+                    drawDeck: shuffleDecks.splice(0, 23),
+                    playerDeck: shuffleDecks.splice(0, 1)
+                });
+                break
+            case 'hard':
+                this.setState({
+                    tableDecks: [
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) }
+                    ],
+                    drawDeck: shuffleDecks.splice(0, 16),
+                    playerDeck: shuffleDecks.splice(0, 1)
+                });
+                break
+            case 'easy':
+                this.setState({
+                    tableDecks: [
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) }
+                    ],
+                    drawDeck: shuffleDecks.splice(0, 30),
+                    playerDeck: shuffleDecks.splice(0, 1)
+                });
+                break
+            default:
+                break
+        }
+    }
+
 
     tableCardClick = (selectedTableDeck, id) => {
         let playerDeck = [...this.state.playerDeck];
@@ -123,12 +163,21 @@ export default class Game extends React.Component {
         return 'Timer: ' + minutes + ":" + seconds
     }
 
+    handleMode = (mode) => {
+        this.setState({ mode })
+        this.componentDidMount()
+    }
+
     render() {
-        const gameEnded = !this.state.tableDecks.find((deck) => {
-            return deck.value.length > 0
-        })
-        return gameEnded ?
-            (<div>
+        return (this.state.mode === '') ? (
+            <div className='mode'>
+                <h3>Choose Game Difficulty</h3>
+                <button onClick={() => this.handleMode('easy')}>Easy</button>
+                <button onClick={() => this.handleMode('medium')}>Medium</button>
+                <button onClick={() => this.handleMode('hard')}>Hard</button>
+            </div>
+        ) : (
+            <div>
                 <div id='gameTimer'>{this.timer()}</div>
                 <h2>You win!</h2>
             </div>)
