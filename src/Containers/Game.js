@@ -2,6 +2,7 @@ import React from "react";
 import TableDecks from "./TableDecks";
 import DrawDeck from "../Components/DrawDeck";
 import PlayerDeck from "../Components/PlayerDeck";
+import Clock from "../Components/Clock"
 
 export default class Game extends React.Component {
     state = {
@@ -85,6 +86,7 @@ export default class Game extends React.Component {
     render() {
         return (
             <div>
+                <Clock />
                 <TableDecks
                     decks={this.state.tableDecks}
                     tableCardClick={this.tableCardClick}
