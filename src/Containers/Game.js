@@ -9,7 +9,8 @@ export default class Game extends React.Component {
         deck: [],
         tableDecks: [],
         drawDeck: [],
-        playerDeck: []
+        playerDeck: [],
+        timer: 0
     };
 
     componentDidMount() {
@@ -17,12 +18,17 @@ export default class Game extends React.Component {
             .then(resp => resp.json())
             .then(data => {
                 this.setState({
-                    deck: data
+                    deck: data,
+                    start: new Date().getTime()
                 });
             })
             .then(() => {
                 this.initDecksState();
-            });
+            })
+
+        setInterval(() => {
+            this.setState({ timer: this.state.timer + 1 })
+        }, 1000)
     }
 
     initDecksState = () => {
@@ -45,8 +51,6 @@ export default class Game extends React.Component {
 
     tableCardClick = (selectedTableDeck, id) => {
         let playerDeck = [...this.state.playerDeck];
-        console.log("selectedValue=>", selectedTableDeck.value[0].value);
-        console.log("playerDeckValue=>", playerDeck[0].value);
         if (
             selectedTableDeck.value[0].value == playerDeck[0].value - 1 ||
             selectedTableDeck.value[0].value - 1 == playerDeck[0].value
@@ -56,7 +60,6 @@ export default class Game extends React.Component {
             tableDecks[id].value = selectedTableDeck.value.slice(1);
 
             this.setState({ tableDecks, playerDeck }, () => {
-                //   console.log(tableDecks[id], !!tableDecks[id].value);
             });
         } else if (
             (selectedTableDeck.value[0].value == 13 && playerDeck[0].value == 1) ||
@@ -67,26 +70,32 @@ export default class Game extends React.Component {
             tableDecks[id].value = selectedTableDeck.value.slice(1);
 
             this.setState({ tableDecks, playerDeck }, () => {
-                //   console.log(tableDecks[id], !!tableDecks[id].value);
             });
         }
     };
 
     drawCardClick = (selectedDrawCard, id) => {
-        // console.log("Fired drawCardClick", selectedDrawCard);
         let playerDeck = [...this.state.playerDeck];
         playerDeck.unshift(selectedDrawCard);
         const drawDeck = [...this.state.drawDeck].slice(1);
 
         this.setState({ playerDeck, drawDeck }, () => {
-            //   console.log("setStatePlayerDeck", playerDeck);
         });
     };
+
+    timer = () => {
+        const time = this.state.timer
+        let seconds = time % 60
+        if (seconds < 10)
+            seconds = "0" + seconds
+        const minutes = Math.floor(time / 60)
+        return 'Timer: ' + minutes + ":" + seconds
+    }
 
     render() {
         return (
             <div>
-                <Clock />
+                <div id='gameTimer'>{this.timer()}</div>
                 <TableDecks
                     decks={this.state.tableDecks}
                     tableCardClick={this.tableCardClick}

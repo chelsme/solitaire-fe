@@ -82,3 +82,9 @@ input {
   font-size: 36px !important;
   margin: 20px 10px;
 }
+
+#gameTimer {
+  position: absolute;
+  left: 1200px;
+  top: 50px;
+}
