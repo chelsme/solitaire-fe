@@ -22,7 +22,7 @@ export default class Game extends React.Component {
         tableDecks: [],
         drawDeck: [],
         playerDeck: [],
-        timer: 0, 
+        timer: 0,
         mode: ''
     };
 
@@ -39,9 +39,9 @@ export default class Game extends React.Component {
                 this.initDecksState();
             })
 
-        setInterval(() => {
-            this.setState({ timer: this.state.timer + 1 })
-        }, 1000)
+        // setInterval(() => {
+        //     this.setState({ timer: this.state.timer + 1 })
+        // }, 1000)
     }
 
     initDecksState = () => {
@@ -49,7 +49,7 @@ export default class Game extends React.Component {
             return 0.5 - Math.random();
         });
         const mode = this.state.mode
-        switch (mode)  {
+        switch (mode) {
             case 'medium':
                 this.setState({
                     tableDecks: [
@@ -149,7 +149,6 @@ export default class Game extends React.Component {
         let playerDeck = [...this.state.playerDeck];
         playerDeck.unshift(selectedWildCard);
         const wildDeck = [...this.state.wildDeck].slice(1);
-        console.log(playerDeck)
         this.setState({ playerDeck, wildDeck }, () => {
         });
     };
@@ -166,23 +165,32 @@ export default class Game extends React.Component {
     handleMode = (mode) => {
         this.setState({ mode })
         this.componentDidMount()
+        this.timerInterval = setInterval(() => {
+            this.setState({ timer: this.state.timer + 1 })
+        }, 1000)
     }
 
     render() {
-        return (this.state.mode === '') ? (
-            <div className='mode'>
-                <h3>Choose Game Difficulty</h3>
-                <button onClick={() => this.handleMode('easy')}>Easy</button>
-                <button onClick={() => this.handleMode('medium')}>Medium</button>
-                <button onClick={() => this.handleMode('hard')}>Hard</button>
-            </div>
-        ) : (
-            <div>
-                <div id='gameTimer'>{this.timer()}</div>
-                <h2>You win!</h2>
-            </div>)
-            :
-            (
+        const gameEnded = !this.state.tableDecks.find(deck => {
+            return deck.value.length > 0;
+        });
+        if (this.state.mode === '') {
+            return (
+                <div className='mode'>
+                    <h3>Choose Game Difficulty</h3>
+                    <button onClick={() => this.handleMode('easy')}>Easy</button>
+                    <button onClick={() => this.handleMode('medium')}>Medium</button>
+                    <button onClick={() => this.handleMode('hard')}>Hard</button>
+                </div>
+            )
+        } else if (gameEnded) {
+            return (
+                <div>
+                    <h1>Winner!</h1>
+                </div>
+            )
+        } else {
+            return (
                 <div>
                     <div id='gameTimer'>{this.timer()}</div>
                     <TableDecks
@@ -200,6 +208,7 @@ export default class Game extends React.Component {
                             wildCardClick={this.wildCardClick} />
                     </div>
                 </div>
-            );
+            )
+        }
     }
 }
