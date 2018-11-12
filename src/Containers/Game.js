@@ -2,7 +2,6 @@ import React from "react";
 import TableDecks from "./TableDecks";
 import DrawDeck from "../Components/DrawDeck";
 import PlayerDeck from "../Components/PlayerDeck";
-import Clock from "../Components/Clock"
 
 export default class Game extends React.Component {
     state = {
@@ -10,7 +9,8 @@ export default class Game extends React.Component {
         tableDecks: [],
         drawDeck: [],
         playerDeck: [],
-        timer: 0
+        timer: 0, 
+        mode: 'medium'
     };
 
     componentDidMount() {
@@ -35,19 +35,58 @@ export default class Game extends React.Component {
         const shuffleDecks = [...this.state.deck].sort(function () {
             return 0.5 - Math.random();
         });
-        this.setState({
-            tableDecks: [
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) },
-                { value: shuffleDecks.splice(0, 6) }
-            ],
-            drawDeck: shuffleDecks.splice(0, 15),
-            playerDeck: shuffleDecks.splice(0, 1)
-        });
-    };
+        const mode = this.state.mode
+        switch (mode)  {
+            case 'medium':
+                this.setState({
+                    tableDecks: [
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) },
+                        { value: shuffleDecks.splice(0, 4) }
+                    ],
+                    drawDeck: shuffleDecks.splice(0, 23),
+                    playerDeck: shuffleDecks.splice(0, 1)
+                });
+                break
+            case 'hard':
+                this.setState({
+                    tableDecks: [
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) },
+                        { value: shuffleDecks.splice(0, 5) }
+                    ],
+                    drawDeck: shuffleDecks.splice(0, 16),
+                    playerDeck: shuffleDecks.splice(0, 1)
+                });
+                break
+            case 'easy':
+                this.setState({
+                    tableDecks: [
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) },
+                        { value: shuffleDecks.splice(0, 3) }
+                    ],
+                    drawDeck: shuffleDecks.splice(0, 30),
+                    playerDeck: shuffleDecks.splice(0, 1)
+                });
+                break
+            default:
+                console.log('default case statement issue')
+        }
+    }
+
 
     tableCardClick = (selectedTableDeck, id) => {
         let playerDeck = [...this.state.playerDeck];
@@ -93,6 +132,7 @@ export default class Game extends React.Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <div>
                 <div id='gameTimer'>{this.timer()}</div>
