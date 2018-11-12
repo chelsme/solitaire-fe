@@ -38,10 +38,6 @@ export default class Game extends React.Component {
             .then(() => {
                 this.initDecksState();
             })
-
-        // setInterval(() => {
-        //     this.setState({ timer: this.state.timer + 1 })
-        // }, 1000)
     }
 
     initDecksState = () => {
@@ -103,33 +99,34 @@ export default class Game extends React.Component {
 
     tableCardClick = (selectedTableDeck, id) => {
         let playerDeck = [...this.state.playerDeck];
+        const select = selectedTableDeck.value
         if (
-            selectedTableDeck.value[0].value == 'wild' ||
+            select[0].value == 'wild' ||
             playerDeck[0].value == 'wild'
         ) {
-            playerDeck.unshift(selectedTableDeck.value[0]);
+            playerDeck.unshift(select[0]);
             let tableDecks = [...this.state.tableDecks];
-            tableDecks[id].value = selectedTableDeck.value.slice(1);
+            tableDecks[id].value = select.slice(1);
 
             this.setState({ tableDecks, playerDeck }, () => {
             });
         } else if (
-            selectedTableDeck.value[0].value == playerDeck[0].value - 1 ||
-            selectedTableDeck.value[0].value - 1 == playerDeck[0].value
+            select[0].value == playerDeck[0].value - 1 ||
+            select[0].value - 1 == playerDeck[0].value
         ) {
-            playerDeck.unshift(selectedTableDeck.value[0]);
+            playerDeck.unshift(select[0]);
             let tableDecks = [...this.state.tableDecks];
-            tableDecks[id].value = selectedTableDeck.value.slice(1);
+            tableDecks[id].value = select.slice(1);
 
             this.setState({ tableDecks, playerDeck }, () => {
             });
         } else if (
-            (selectedTableDeck.value[0].value == 13 && playerDeck[0].value == 1) ||
-            (selectedTableDeck.value[0].value == 1 && playerDeck[0].value == 13)
+            (select[0].value == 13 && playerDeck[0].value == 1) ||
+            (select[0].value == 1 && playerDeck[0].value == 13)
         ) {
-            playerDeck.unshift(selectedTableDeck.value[0]);
+            playerDeck.unshift(select[0]);
             let tableDecks = [...this.state.tableDecks];
-            tableDecks[id].value = selectedTableDeck.value.slice(1);
+            tableDecks[id].value = select.slice(1);
 
             this.setState({ tableDecks, playerDeck }, () => {
             });
@@ -170,6 +167,14 @@ export default class Game extends React.Component {
         }, 1000)
     }
 
+    gameFinished = () => {
+        return (
+            <div>
+                <h1>Winner!</h1>
+            </div>
+        )
+    }
+
     render() {
         const gameEnded = !this.state.tableDecks.find(deck => {
             return deck.value.length > 0;
@@ -185,9 +190,7 @@ export default class Game extends React.Component {
             )
         } else if (gameEnded) {
             return (
-                <div>
-                    <h1>Winner!</h1>
-                </div>
+                this.gameFinished()
             )
         } else {
             return (
