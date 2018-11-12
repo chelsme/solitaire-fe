@@ -124,24 +124,33 @@ export default class Game extends React.Component {
     }
 
     render() {
-        return (
-            <div>
+        const gameEnded = !this.state.tableDecks.find((deck) => {
+            return deck.value.length > 0
+        })
+        return gameEnded ?
+            (<div>
                 <div id='gameTimer'>{this.timer()}</div>
-                <TableDecks
-                    decks={this.state.tableDecks}
-                    tableCardClick={this.tableCardClick}
-                />
-                <div className="tableDecks">
-                    <DrawDeck
-                        deck={this.state.drawDeck}
-                        drawCardClick={this.drawCardClick}
+                <h2>You win!</h2>
+            </div>)
+            :
+            (
+                <div>
+                    <div id='gameTimer'>{this.timer()}</div>
+                    <TableDecks
+                        decks={this.state.tableDecks}
+                        tableCardClick={this.tableCardClick}
                     />
-                    <PlayerDeck deck={this.state.playerDeck} />
-                    <WildDeck
-                        deck={this.state.wildDeck}
-                        wildCardClick={this.wildCardClick} />
+                    <div className="tableDecks">
+                        <DrawDeck
+                            deck={this.state.drawDeck}
+                            drawCardClick={this.drawCardClick}
+                        />
+                        <PlayerDeck deck={this.state.playerDeck} />
+                        <WildDeck
+                            deck={this.state.wildDeck}
+                            wildCardClick={this.wildCardClick} />
+                    </div>
                 </div>
-            </div>
-        );
+            );
     }
 }
