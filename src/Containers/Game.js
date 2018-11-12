@@ -26,7 +26,7 @@ export default class Game extends React.Component {
     };
 
     componentDidMount() {
-        fetch("http://localhost:3000/Cards")
+        fetch("http://localhost:3000/api/v1/cards")
             .then(resp => resp.json())
             .then(data => {
                 this.setState({
@@ -140,7 +140,7 @@ export default class Game extends React.Component {
                         decks={this.state.tableDecks}
                         tableCardClick={this.tableCardClick}
                     />
-                    <div className="tableDecks">
+                    <div className="lowerDecks">
                         <DrawDeck
                             deck={this.state.drawDeck}
                             drawCardClick={this.drawCardClick}
