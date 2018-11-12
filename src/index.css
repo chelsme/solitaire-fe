@@ -31,7 +31,7 @@ code {
 
 .tableDecks {
   margin: auto;
-  width: 95%;
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -46,7 +46,7 @@ code {
 }
 
 .card img {
-  max-width: 200px;
+  max-width: 180px;
   margin: 20px 10px;
   width: 100%;
 }
