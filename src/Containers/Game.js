@@ -149,7 +149,6 @@ export default class Game extends React.Component {
         let playerDeck = [...this.state.playerDeck];
         playerDeck.unshift(selectedWildCard);
         const wildDeck = [...this.state.wildDeck].slice(1);
-        console.log(playerDeck)
         this.setState({ playerDeck, wildDeck }, () => {
         });
     };
@@ -176,12 +175,7 @@ export default class Game extends React.Component {
                 <button onClick={() => this.handleMode('medium')}>Medium</button>
                 <button onClick={() => this.handleMode('hard')}>Hard</button>
             </div>
-        ) : (
-            <div>
-                <div id='gameTimer'>{this.timer()}</div>
-                <h2>You win!</h2>
-            </div>)
-            :
+        )   :
             (
                 <div>
                     <div id='gameTimer'>{this.timer()}</div>
