@@ -9,7 +9,6 @@ export default class WildDeck extends React.Component {
                     <img
                         onClick={() => {
                             wildCardClick(deck[0]);
-                            console.log(deck[0])
                         }}
                         src={require("../images/wild.png")}
                         alt="oh!no"
