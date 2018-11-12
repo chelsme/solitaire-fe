@@ -31,6 +31,14 @@ code {
 
 .tableDecks {
   margin: auto;
+  width: 95%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.lowerDecks {
+  margin: auto;
   width: 50%;
   display: flex;
   flex-direction: row;
@@ -38,8 +46,9 @@ code {
 }
 
 .card img {
-  width: 220px;
+  max-width: 200px;
   margin: 20px 10px;
+  width: 100%;
 }
 
 ul {

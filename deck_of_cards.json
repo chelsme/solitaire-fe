@@ -1,5 +1,6 @@
 {
-    "Cards": [{
+    "Cards": [
+        {
             "suit": "CLUBS",
             "value": "13",
             "code": "KC",
