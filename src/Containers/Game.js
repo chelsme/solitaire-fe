@@ -2,9 +2,22 @@ import React from "react";
 import TableDecks from "./TableDecks";
 import DrawDeck from "../Components/DrawDeck";
 import PlayerDeck from "../Components/PlayerDeck";
+import WildDeck from "../Components/WildDeck";
 
 export default class Game extends React.Component {
     state = {
+        wildDeck: [
+            {
+                "suit": "WILD",
+                "value": "wild",
+                "code": "W",
+                "image": require("../images/wild.png")
+            }, {
+                "suit": "WILD",
+                "value": "wild",
+                "code": "W",
+                "image": require("../images/wild.png")
+            }],
         deck: [],
         tableDecks: [],
         drawDeck: [],
@@ -51,6 +64,16 @@ export default class Game extends React.Component {
     tableCardClick = (selectedTableDeck, id) => {
         let playerDeck = [...this.state.playerDeck];
         if (
+            selectedTableDeck.value[0].value == 'wild' ||
+            playerDeck[0].value == 'wild'
+        ) {
+            playerDeck.unshift(selectedTableDeck.value[0]);
+            let tableDecks = [...this.state.tableDecks];
+            tableDecks[id].value = selectedTableDeck.value.slice(1);
+
+            this.setState({ tableDecks, playerDeck }, () => {
+            });
+        } else if (
             selectedTableDeck.value[0].value == playerDeck[0].value - 1 ||
             selectedTableDeck.value[0].value - 1 == playerDeck[0].value
         ) {
@@ -82,6 +105,15 @@ export default class Game extends React.Component {
         });
     };
 
+    wildCardClick = (selectedWildCard) => {
+        let playerDeck = [...this.state.playerDeck];
+        playerDeck.unshift(selectedWildCard);
+        const wildDeck = [...this.state.wildDeck].slice(1);
+        console.log(playerDeck)
+        this.setState({ playerDeck, wildDeck }, () => {
+        });
+    };
+
     timer = () => {
         const time = this.state.timer
         let seconds = time % 60
@@ -105,6 +137,9 @@ export default class Game extends React.Component {
                         drawCardClick={this.drawCardClick}
                     />
                     <PlayerDeck deck={this.state.playerDeck} />
+                    <WildDeck
+                        deck={this.state.wildDeck}
+                        wildCardClick={this.wildCardClick} />
                 </div>
             </div>
         );
