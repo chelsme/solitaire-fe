@@ -2,7 +2,7 @@ import React from "react";
 
 export default class WildDeck extends React.Component {
     render() {
-        const { deck, wildCardClick, id } = this.props;
+        const { deck, wildCardClick } = this.props;
         return (
             <div id='wildDeck' className="card">
                 {deck[0] ? (

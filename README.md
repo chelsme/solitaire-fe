@@ -1,3 +1,14 @@
+## User Stories
+
+User should be able to sign up.
+User should be able to login.
+User should be able to select a game difficulty.
+User should be able to win game.
+User should be able to lose game.
+User should be able to see their own stats.
+User should be able to see global stats.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
