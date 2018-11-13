@@ -25,7 +25,9 @@ button {
   height:50px !important; 
   width:200px !important; 
   position:relative;
-  font-size: 20px !important;
+  font-size: 26px !important;
+  font-family: 'Courgette', cursive;
+  border: 2px solid darkred;
 }
 
 code {
