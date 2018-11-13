@@ -22,13 +22,13 @@ export default class Profile extends React.Component {
                 <h2>Stats</h2>
                 <p>Games Won: { [...userStats].filter(s => s.game_score === 'win').length }</p>
                 <p>Games Lost: { [...userStats].filter(s => s.game_score === 'loss').length }</p>
-                <p>Fastest Time: { userStats.length > 0 
+                {/* <p>Fastest Time: { userStats.length > 0 
                     ? 
-                    userStats.find(s => s.)
+                    // userStats.find(s => s.)
                     : 
                     null 
                     }
-                    </p>
+                    </p> */}
             </div>
         )
     }
