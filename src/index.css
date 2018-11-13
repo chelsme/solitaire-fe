@@ -124,8 +124,7 @@ input {
 
 .deck {
   text-align: center;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0 auto;
 }
 
 .deck img {
@@ -134,16 +133,18 @@ input {
   margin-right: 10px;
 }
 
+.card {
+  width: 170px;
+}
+
 .card0 {
   display: none;
 }
 
 #drawCardCount {
   color: antiquewhite;
-  margin: 0;
-  position: fixed;
-  bottom: 0px;
-  left: 535px;
+  margin: 20px 0 0 -50px;
+  position: absolute;
 }
 
 #gameWin, #gameLose {
