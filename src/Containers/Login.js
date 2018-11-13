@@ -1,31 +1,28 @@
 import React from "react";
-const login_api = "http://localhost:3000/api/v1/login";
-export default class Home extends React.Component {
-  state = { username: "", password: "", token: "" };
+import AuthService from "../Components/AuthService";
 
-  handleLogin = e => {
+export default class Login extends React.Component {
+  constructor() {
+    super();
+    this.Auth = new AuthService();
+    this.state = { username: "", password: "", token: "" };
+  }
+
+  handleSubmit = e => {
     e.preventDefault();
 
     // console.log(e.target.username.value, e.target.password.value, this.state);
 
-    fetch("http://localhost:3000/api/v1/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json"
-      },
-      body: JSON.stringify({
-        user: {
-          username: e.target.username.value,
-          password: e.target.password.value
-        }
+    this.Auth.login(this.state.username, this.state.password)
+      .then(res => {
+        this.props.history.replace("/");
       })
-    })
-      .then(r => r.json())
-      .then(r => {
-        this.props.history.push("/game");
-      });
+      .catch(err => alert(err));
   };
+
+  componentWillMount() {
+    if (this.Auth.loggedIn()) this.props.history.replace("/");
+  }
 
   handleChange = e => {
     console.log(e.target.name, e.target.value);
@@ -36,11 +33,12 @@ export default class Home extends React.Component {
     console.log(this.props);
     return (
       <div className="forms">
-        <form onSubmit={this.handleLogin}>
+        <form onSubmit={this.handleSubmit}>
           Username:{" "}
           <input
             type="text"
             name="username"
+            placeholder="type in your username..."
             value={this.state.value}
             onChange={this.handleChange}
           />
@@ -48,6 +46,7 @@ export default class Home extends React.Component {
           <input
             type="password"
             name="password"
+            placeholder="type in your password..."
             value={this.state.value}
             onChange={this.handleChange}
           />
