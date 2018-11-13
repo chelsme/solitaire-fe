@@ -140,10 +140,8 @@ input {
 
 #drawCardCount {
   color: antiquewhite;
-  margin: 0;
-  position: fixed;
-  bottom: 0px;
-  left: 535px;
+  margin: 20px 0 0 -50px;
+  position: absolute;
 }
 
 #gameWin, #gameLose {

@@ -25,7 +25,7 @@ const AppRouter = () => (
           </li>
           {/*  */}
           <li>
-            <Link to="/game/">Play</Link>
+            <Link to="/game/" onClick="window.location.reload()">Play</Link>
           </li>
           <li>
             <Link to="/globalstats/">Stats</Link>
