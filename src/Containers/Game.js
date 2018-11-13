@@ -169,6 +169,7 @@ export default class Game extends React.Component {
     }
 
     gameFinished = () => {
+        this.postGameStats('win')
         return (
             <div>
                 <h1 id='gameWin'>Winner!</h1>
@@ -178,9 +179,13 @@ export default class Game extends React.Component {
     }
 
     gameLost = () => {
+<<<<<<< HEAD
         const gameTime = this.state.timer
         clearInterval(this.timerInterval)
         console.log(gameTime)
+=======
+        this.postGameStats('loss')
+>>>>>>> ba0cf085c17385d19ef777ccf1843d47538afbdc
         return (
             <div>
                 <h1 id='gameLose'>Oh no!</h1>
@@ -188,10 +193,26 @@ export default class Game extends React.Component {
         )
     }
 
+    postGameStats = (result) => {
+        // const time = this.state.timer
+        fetch('http://localhost:3000/api/v1/postgame', {
+            method:"post", 
+            headers: {
+                'Content-Type': 'application/json',
+                Accept: 'application/json' 
+            }, 
+            body: JSON.stringify({
+                user_id: 1, //need to add actual userId with trung from localStorage
+                game_score: result, //this is good
+                game_time: '5' //need to use timer state or other game time state for this to post
+            })
+        })
+    }
+
     render() {
-        const gameDone = !this.state.tableDecks.find(deck => {
-            return deck.value.length > 0;
-        });
+        const gameDone = (this.state.timer > 5) ? !this.state.tableDecks.find(deck => {
+            return deck.value.length > 0  
+        }) : false
         if (this.state.mode === '') {
             return (
                 <div className='mode'>
