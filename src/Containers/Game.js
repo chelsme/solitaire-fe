@@ -10,13 +10,13 @@ export default class Game extends React.Component {
       {
         suit: "WILD",
         value: "wild",
-        code: "W",
+        code: "wild",
         image: require("../images/wild.png")
       },
       {
         suit: "WILD",
         value: "wild",
-        code: "W",
+        code: "wild",
         image: require("../images/wild.png")
       }
     ],
