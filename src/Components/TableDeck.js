@@ -3,11 +3,12 @@ import React from "react";
 export default class TableDeck extends React.Component {
     render() {
         const { deck, tableCardClick, id } = this.props;
+        const under = new Array(deck.value.length).fill(0);
         return (
             <div className="card">
                 {deck.value[0] ? (
                     <div className='deck'>
-                        {deck.value.map((card, index) => {
+                        {under.map((fill, index) => {
                             return <img className={"card" + index} src={require(`../images/card_back.png`)} alt='stop it' />
                         })}
                         <img className='topCard'
