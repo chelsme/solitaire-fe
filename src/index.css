@@ -30,6 +30,7 @@ code {
 }
 
 .tableDecks {
+  padding-top: 40px;
   margin: auto;
   width: 80%;
   display: flex;
@@ -46,9 +47,9 @@ code {
 }
 
 .card img {
-  max-width: 180px;
-  margin: 20px 10px;
-  width: 100%;
+  width: 150px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 ul {
@@ -103,4 +104,34 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.deck {
+  text-align: center;
+}
+
+.card1 {
+  margin-top: -400px;
+}
+.card2 {
+  margin-top: -800px;
+}
+.card3 {
+  margin-top: -1200px;
+}
+.card4 {
+  margin-top: -1600px;
+}
+.card5 {
+  margin-top: -2000px;
+}
+
+.topCard  {
+  margin-top: -2400px;
+}
+
+#drawCardCount {
+  color: antiquewhite;
+  margin-top: -10px;
+  font-size: 40px;
 }

@@ -6,13 +6,19 @@ export default class TableDeck extends React.Component {
         return (
             <div className="card">
                 {deck.value[0] ? (
-                    <img
-                        onClick={() => {
-                            tableCardClick(deck, id);
-                        }}
-                        src={deck.value[0].image}
-                        alt="oh!no"
-                    />
+                    <div className='deck'>
+                        {deck.value.map((card, index) => {
+                            return <img className={"card" + index} src={require(`../images/card_back.png`)} alt='stop it' />
+                        })}
+                        <img className='topCard'
+                            onClick={() => {
+                                tableCardClick(deck, id);
+                            }}
+                            src={deck.value[0].image}
+                            alt="oh!no"
+                        />
+                    </div>
+
                 ) : (
                         <img src={require(`../images/skull_${id + 1}.png`)} alt='no!' />
                     )}
