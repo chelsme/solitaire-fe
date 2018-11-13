@@ -175,18 +175,11 @@ export default class Game extends React.Component {
         )
     }
 
+    postGameStats = () => {
+        fetch('')
+    }
+
     render() {
-<<<<<<< HEAD
-        return (this.state.mode === '') ? (
-            <div className='mode'>
-                <h3>Choose Game Difficulty</h3>
-                <button onClick={() => this.handleMode('easy')}>Easy</button>
-                <button onClick={() => this.handleMode('medium')}>Medium</button>
-                <button onClick={() => this.handleMode('hard')}>Hard</button>
-            </div>
-        )   :
-            (
-=======
         const gameEnded = !this.state.tableDecks.find(deck => {
             return deck.value.length > 0;
         });
@@ -200,12 +193,12 @@ export default class Game extends React.Component {
                 </div>
             )
         } else if (gameEnded) {
+            this.postGameStats()
             return (
                 this.gameFinished()
             )
         } else {
             return (
->>>>>>> 3237c9d285fcee94f5a69cbff53c316062c76cc4
                 <div>
                     <div id='gameTimer'>{this.timer()}</div>
                     <TableDecks
