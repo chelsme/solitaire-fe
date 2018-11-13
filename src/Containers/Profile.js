@@ -1,6 +1,8 @@
-import React from 'react'
-
+import React from 'react';
+import AuthService from "./AuthService"
+const Auth = new AuthService();
 export default class Profile extends React.Component {
+    
     state = {
         userStats: []
     }
@@ -9,7 +11,8 @@ export default class Profile extends React.Component {
         fetch("http://localhost:3000/api/v1/games")
             .then(resp => resp.json())
             .then(stats => {
-                const tempStats = stats.filter(stat => stat.user.id === 1) //change this 1 to localStorage userId
+                const user = Auth.getProfile()
+                const tempStats = stats.filter(stat => stat.user.id === user.user_id)
                 const userStats = tempStats.sort(function(a, b) {return parseInt(a.game_time) - parseInt(b.game_time)}) 
                 this.setState({ userStats })
             })

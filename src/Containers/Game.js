@@ -3,7 +3,9 @@ import TableDecks from "./TableDecks";
 import DrawDeck from "../Components/DrawDeck";
 import PlayerDeck from "../Components/PlayerDeck";
 import WildDeck from "../Components/WildDeck";
+import AuthService from "./AuthService"
 
+const Auth = new AuthService();
 export default class Game extends React.Component {
   state = {
     wildDeck: [
@@ -205,8 +207,9 @@ export default class Game extends React.Component {
   };
 
   postGameStats = result => {
-    // const time = this.state.timer
     let time = this.getGameTime();
+    let user = Auth.getProfile()
+    let mode = this.state.mode
     fetch("http://localhost:3000/api/v1/postgame", {
       method: "post",
       headers: {
@@ -214,9 +217,10 @@ export default class Game extends React.Component {
         Accept: "application/json"
       },
       body: JSON.stringify({
-        user_id: 1, //need to add actual userId with trung from localStorage
-        game_score: result, //this is good
-        game_time: time //need to use timer state or other game time state for this to post
+        user_id: user.user_id, 
+        game_score: result, 
+        game_time: time,
+        game_mode: mode
       })
     });
   };
@@ -238,7 +242,7 @@ export default class Game extends React.Component {
         </div>
       );
     } else if (gameDone) {
-      return this.gameFinished();
+      return this.gameFinished(); //this still posts twice as a win, loss is working fine
     } else if (this.state.gameEnded) {
       return this.gameLost();
     } else {
