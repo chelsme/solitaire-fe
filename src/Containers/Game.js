@@ -201,10 +201,6 @@ export default class Game extends React.Component {
     postGameStats = (result) => {
         // const time = this.state.timer
         let time = this.getGameTime()
-        let seconds = time % 60
-        if (seconds < 10)
-            seconds = "0" + seconds
-        const minutes = Math.floor(time / 60)
         fetch('http://localhost:3000/api/v1/postgame', {
             method: "post",
             headers: {
@@ -214,7 +210,7 @@ export default class Game extends React.Component {
             body: JSON.stringify({
                 user_id: 1, //need to add actual userId with trung from localStorage
                 game_score: result, //this is good
-                game_time: minutes + ':' + seconds //need to use timer state or other game time state for this to post
+                game_time: time //need to use timer state or other game time state for this to post
             })
         })
     }
