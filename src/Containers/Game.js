@@ -178,6 +178,9 @@ export default class Game extends React.Component {
     }
 
     gameLost = () => {
+        const gameTime = this.state.timer
+        clearInterval(this.timerInterval)
+        console.log(gameTime)
         return (
             <div>
                 <h1 id='gameLose'>Oh no!</h1>
