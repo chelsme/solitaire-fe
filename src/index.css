@@ -124,14 +124,17 @@ input {
 
 .deck {
   text-align: center;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin: 0 auto;
 }
 
 .deck img {
   margin-bottom: -170px;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.card {
+  width: 170px;
 }
 
 .card0 {
