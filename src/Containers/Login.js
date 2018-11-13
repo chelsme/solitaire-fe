@@ -1,27 +1,28 @@
 import React from "react";
-import AuthService from "../Components/AuthService";
+import AuthService from "./AuthService";
 
 export default class Login extends React.Component {
   constructor() {
     super();
     this.Auth = new AuthService();
-    this.state = { username: "", password: "", token: "" };
+    this.state = { username: "", password: "" };
   }
 
   handleSubmit = e => {
     e.preventDefault();
 
-    // console.log(e.target.username.value, e.target.password.value, this.state);
-
     this.Auth.login(this.state.username, this.state.password)
       .then(res => {
-        this.props.history.replace("/");
+        this.props.history.replace("/game");
       })
-      .catch(err => alert(err));
+      .catch(err => {
+        alert(err);
+        this.props.history.replace("/");
+      });
   };
 
   componentWillMount() {
-    if (this.Auth.loggedIn()) this.props.history.replace("/");
+    if (this.Auth.loggedIn()) this.props.history.replace("/game");
   }
 
   handleChange = e => {
@@ -30,29 +31,28 @@ export default class Login extends React.Component {
   };
 
   render() {
-    console.log(this.props);
     return (
-      <div className="forms">
-        <form onSubmit={this.handleSubmit}>
-          Username:{" "}
-          <input
-            type="text"
-            name="username"
-            placeholder="type in your username..."
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          Password:{" "}
-          <input
-            type="password"
-            name="password"
-            placeholder="type in your password..."
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <button>Login</button>
-        </form>
-        <button>Sign Up</button>
+      <div className="center">
+        <div className="form">
+          <h1>Login</h1>
+          <form onSubmit={this.handleSubmit}>
+            <input
+              className="form-item"
+              placeholder="Username goes here..."
+              name="username"
+              type="text"
+              onChange={this.handleChange}
+            />
+            <input
+              className="form-item"
+              placeholder="Password goes here..."
+              name="password"
+              type="password"
+              onChange={this.handleChange}
+            />
+            <button>Login</button>
+          </form>
+        </div>
       </div>
     );
   }

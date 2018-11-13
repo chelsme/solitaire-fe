@@ -10,14 +10,23 @@ export default class AuthService {
     // Get a token from api server using the fetch api
     return fetch(`${this.domain}/login`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify({
-        username,
-        password
+        user: {
+          username,
+          password
+        }
       })
-    }).then(res => {
-      this.setToken(res.token); // Setting the token in localStorage
-      return Promise.resolve(res);
-    });
+    })
+      .then(res => res.json())
+      .then(res => {
+        res.jwt
+          ? this.setToken(res.jwt)
+          : alert("Something wrong with your username and password"); // Setting the token in localStorage
+        return Promise.resolve(res);
+      });
   };
 
   loggedIn() {

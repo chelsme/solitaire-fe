@@ -12,20 +12,18 @@ import Login from "./Containers/Login";
 import Profile from "./Containers/Profile";
 import SignUp from "./Containers/SignUp";
 import GlobalStats from "./Containers/GlobalStats";
+import Logout from "./Containers/Logout";
+import PrivateRoute from "./Containers/PrivateRoute";
+// import withAuth from "./Containers/withAuth";
+// const Auth = new AuthService();
 
-////////////////////////////////////////////////////////////
-// 1. Click the public page
-// 2. Click the protected page
-// 3. Log in
-// 4. Click the back button, note the URL each time
-
-function AuthApp() {
+function App() {
   return (
     <Router>
       <nav>
         <ul>
           <li>
-            <Link to="/login">Home</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
             <Link to="/signup">Sign Up</Link>
@@ -39,15 +37,19 @@ function AuthApp() {
           <li>
             <Link to="/stats">Leaderboard</Link>
           </li>
+          <li>
+            <Link to="/logout">Logout</Link>
+          </li>
         </ul>
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={SignUp} />
-        <Route path="/profile" component={Profile} />
-        <Route path="/game" component={Game} />
-        <Route path="/stats" component={GlobalStats} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
+        <PrivateRoute exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/game" component={Game} />
+        <PrivateRoute exact path="/stats" component={GlobalStats} />
+        <PrivateRoute exact path="/logout" component={Logout} />
       </nav>
     </Router>
   );
 }
 
-export default AuthApp;
+export default App;
