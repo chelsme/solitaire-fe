@@ -23,7 +23,8 @@ export default class Game extends React.Component {
         drawDeck: [],
         playerDeck: [],
         timer: 0,
-        mode: ''
+        mode: '',
+        gameEnded: false
     };
 
     componentDidMount() {
@@ -101,8 +102,8 @@ export default class Game extends React.Component {
         let playerDeck = [...this.state.playerDeck];
         const select = selectedTableDeck.value
         if (
-            select[0].value == 'wild' ||
-            playerDeck[0].value == 'wild'
+            select[0].value === 'wild' ||
+            playerDeck[0].value === 'wild'
         ) {
             playerDeck.unshift(select[0]);
             let tableDecks = [...this.state.tableDecks];
@@ -111,8 +112,8 @@ export default class Game extends React.Component {
             this.setState({ tableDecks, playerDeck }, () => {
             });
         } else if (
-            select[0].value == playerDeck[0].value - 1 ||
-            select[0].value - 1 == playerDeck[0].value
+            parseInt(select[0].value) === parseInt(playerDeck[0].value - 1) ||
+            parseInt(select[0].value - 1) === parseInt(playerDeck[0].value)
         ) {
             playerDeck.unshift(select[0]);
             let tableDecks = [...this.state.tableDecks];
@@ -121,8 +122,8 @@ export default class Game extends React.Component {
             this.setState({ tableDecks, playerDeck }, () => {
             });
         } else if (
-            (select[0].value == 13 && playerDeck[0].value == 1) ||
-            (select[0].value == 1 && playerDeck[0].value == 13)
+            (parseInt(select[0].value === 13) && parseInt(playerDeck[0].value === 1)) ||
+            (parseInt(select[0].value === 1) && parseInt(playerDeck[0].value === 13))
         ) {
             playerDeck.unshift(select[0]);
             let tableDecks = [...this.state.tableDecks];
@@ -160,7 +161,7 @@ export default class Game extends React.Component {
     }
 
     handleMode = (mode) => {
-        this.setState({ mode })
+        this.setState({ mode, gameEnded: false })
         this.componentDidMount()
         this.timerInterval = setInterval(() => {
             this.setState({ timer: this.state.timer + 1 })
@@ -170,13 +171,22 @@ export default class Game extends React.Component {
     gameFinished = () => {
         return (
             <div>
-                <h1>Winner!</h1>
+                <h1 id='gameWin'>Winner!</h1>
+                <img id='fireworks' src='https://www.bing.com/th?id=OGC.fb4bf78a5bc230e2b1f35324982718a7&pid=1.7&rurl=https%3a%2f%2fmedia.giphy.com%2fmedia%2f26tOZ42Mg6pbTUPHW%2fgiphy.gif&ehk=xrGSHOSErnBgKNr5LZUrKg' alt='fireworks' />
+            </div>
+        )
+    }
+
+    gameLost = () => {
+        return (
+            <div>
+                <h1 id='gameLose'>Oh no!</h1>
             </div>
         )
     }
 
     render() {
-        const gameEnded = !this.state.tableDecks.find(deck => {
+        const gameDone = !this.state.tableDecks.find(deck => {
             return deck.value.length > 0;
         });
         if (this.state.mode === '') {
@@ -188,9 +198,13 @@ export default class Game extends React.Component {
                     <button onClick={() => this.handleMode('hard')}>Hard</button>
                 </div>
             )
-        } else if (gameEnded) {
+        } else if (gameDone) {
             return (
                 this.gameFinished()
+            )
+        } else if (this.state.gameEnded) {
+            return (
+                this.gameLost()
             )
         } else {
             return (
@@ -210,6 +224,7 @@ export default class Game extends React.Component {
                             deck={this.state.wildDeck}
                             wildCardClick={this.wildCardClick} />
                     </div>
+                    <button id="endGame" onClick={() => this.setState({ gameEnded: true })}>Womp womp</button>
                 </div>
             )
         }

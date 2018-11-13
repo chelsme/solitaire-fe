@@ -9,7 +9,7 @@ export default class TableDeck extends React.Component {
                 {deck.value[0] ? (
                     <div className='deck'>
                         {under.map((fill, index) => {
-                            return <img className={"card" + index} src={require(`../images/card_back.png`)} alt='stop it' />
+                            return <img key={index} className={"card" + index} src={require(`../images/card_back.png`)} alt='stop it' />
                         })}
                         <img className='topCard'
                             onClick={() => {
