@@ -122,8 +122,8 @@ export default class Game extends React.Component {
             this.setState({ tableDecks, playerDeck }, () => {
             });
         } else if (
-            (parseInt(select[0].value === 13) && parseInt(playerDeck[0].value === 1)) ||
-            (parseInt(select[0].value === 1) && parseInt(playerDeck[0].value === 13))
+            (select[0].value == 13 && playerDeck[0].value == 1) ||
+            (select[0].value == 1 && playerDeck[0].value == 13)
         ) {
             playerDeck.unshift(select[0]);
             let tableDecks = [...this.state.tableDecks];
@@ -169,6 +169,7 @@ export default class Game extends React.Component {
     }
 
     gameFinished = () => {
+        this.getGameTime()
         this.postGameStats('win')
         return (
             <div>
@@ -179,6 +180,7 @@ export default class Game extends React.Component {
     }
 
     gameLost = () => {
+        this.getGameTime()
         this.postGameStats('loss')
         return (
             <div>
@@ -187,25 +189,39 @@ export default class Game extends React.Component {
         )
     }
 
+    getGameTime = () => {
+        const gameTime = this.state.timer
+        setTimeout(() => {
+            clearInterval(this.timerInterval)
+            console.log(gameTime)
+        }, 500)
+        return gameTime
+    }
+
     postGameStats = (result) => {
         // const time = this.state.timer
+        let time = this.getGameTime()
+        let seconds = time % 60
+        if (seconds < 10)
+            seconds = "0" + seconds
+        const minutes = Math.floor(time / 60)
         fetch('http://localhost:3000/api/v1/postgame', {
-            method:"post", 
+            method: "post",
             headers: {
                 'Content-Type': 'application/json',
-                Accept: 'application/json' 
-            }, 
+                Accept: 'application/json'
+            },
             body: JSON.stringify({
                 user_id: 1, //need to add actual userId with trung from localStorage
                 game_score: result, //this is good
-                game_time: '5' //need to use timer state or other game time state for this to post
+                game_time: minutes + ':' + seconds //need to use timer state or other game time state for this to post
             })
         })
     }
 
     render() {
         const gameDone = (this.state.timer > 5) ? !this.state.tableDecks.find(deck => {
-            return deck.value.length > 0  
+            return deck.value.length > 0
         }) : false
         if (this.state.mode === '') {
             return (
