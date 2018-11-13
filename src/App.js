@@ -20,34 +20,33 @@ import PrivateRoute from "./Containers/PrivateRoute";
 function App() {
   return (
     <Router>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/signup">Sign Up</Link>
-          </li>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/game">Game</Link>
-          </li>
-          <li>
-            <Link to="/stats">Leaderboard</Link>
-          </li>
-          <li>
-            <Link to="/logout">Logout</Link>
-          </li>
-        </ul>
+      <div>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
+              <Link to="/game">Game</Link>
+            </li>
+            <li>
+              <Link to="/stats">Leaderboard</Link>
+            </li>
+            <li>
+              <Link to="/logout">Logout</Link>
+            </li>
+          </ul>
+        </nav>
         <Route exact path="/" component={Login} />
         <Route exact path="/signup" component={SignUp} />
         <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/game" component={Game} />
         <PrivateRoute exact path="/stats" component={GlobalStats} />
         <PrivateRoute exact path="/logout" component={Logout} />
-      </nav>
+      </div>
     </Router>
   );
 }

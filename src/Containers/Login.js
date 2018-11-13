@@ -30,11 +30,13 @@ export default class Login extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleSignUpRedirect = () => {
+    this.props.history.replace("/signup")
+  }
   render() {
     return (
       <div className="center">
         <div className="form">
-          <h1>Login</h1>
           <form onSubmit={this.handleSubmit}>
             <input
               className="form-item"
@@ -52,6 +54,7 @@ export default class Login extends React.Component {
             />
             <button>Login</button>
           </form>
+          <button onClick={this.handleSignUpRedirect}>Sign Up</button>
         </div>
       </div>
     );
