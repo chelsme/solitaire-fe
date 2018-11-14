@@ -3,7 +3,6 @@ import React from "react";
 export default class TableDeck extends React.Component {
   render() {
     const { deck, tableCardClick, id } = this.props;
-    console.log(deck.value[0]);
     const under = new Array(deck.value.length).fill(0);
     // let img = require(deck.value[0].image);
     return (
@@ -30,8 +29,8 @@ export default class TableDeck extends React.Component {
             />
           </div>
         ) : (
-          <img src={require(`../images/skull_${id + 1}.png`)} alt="no!" />
-        )}
+            <img src={require(`../images/skull_${id + 1}.png`)} alt="no!" />
+          )}
       </div>
     );
   }

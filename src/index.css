@@ -37,6 +37,7 @@ nav button {
   color: antiquewhite;
   width: 215px !important;
   text-align: left;
+  cursor:pointer;
 }
 
 code {
@@ -75,7 +76,7 @@ code {
   margin-right: 10px;
 }
 
-ul {
+nav ul {
   list-style-type: none;
   position: absolute;
   top: 0;
@@ -198,4 +199,48 @@ input {
   height: 35%;
   padding-top: 5%;
   float: left;
+}
+
+.topCard, #playerDeck, #drawDeck, #wildDeck {
+  cursor: grabbing;
+}
+
+#game {
+  height: 800px;
+  cursor: grab;
+}
+
+button:focus {
+  outline: none;
+}
+
+.statRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+lh h4 {
+  margin: 5px;
+  text-decoration: underline;
+}
+
+ol li {
+  font-size: 40px;
+  margin: 0;
+  margin-left: 60px;
+}
+
+h3 {
+  margin-left: 40px;
+}
+
+.mode h3 {
+  margin: 50px auto;
 }

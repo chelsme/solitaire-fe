@@ -3,31 +3,40 @@ import TableDecks from "./TableDecks";
 import DrawDeck from "../Components/DrawDeck";
 import PlayerDeck from "../Components/PlayerDeck";
 import WildDeck from "../Components/WildDeck";
+import AuthService from "./AuthService";
+import { throttle } from "lodash";
 
+const Auth = new AuthService();
 export default class Game extends React.Component {
-  state = {
-    wildDeck: [
-      {
-        suit: "WILD",
-        value: "wild",
-        code: "wild",
-        image: require("../images/wild.png")
-      },
-      {
-        suit: "WILD",
-        value: "wild",
-        code: "wild",
-        image: require("../images/wild.png")
-      }
-    ],
-    deck: [],
-    tableDecks: [],
-    drawDeck: [],
-    playerDeck: [],
-    timer: 0,
-    mode: "",
-    gameEnded: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      wildDeck: [
+        {
+          suit: "WILD",
+          value: "wild",
+          code: "wild",
+          image: require("../images/wild.png")
+        },
+        {
+          suit: "WILD",
+          value: "wild",
+          code: "wild",
+          image: require("../images/wild.png")
+        }
+      ],
+      deck: [],
+      tableDecks: [],
+      drawDeck: [],
+      playerDeck: [],
+      timer: 0,
+      mode: "",
+      gameEnded: false
+    }
+
+    this.gameFinished = throttle(this.gameFinished, 1000, { trailing: false });
+  }
 
   componentDidMount() {
     fetch("http://localhost:3000/api/v1/cards")
@@ -82,13 +91,13 @@ export default class Game extends React.Component {
       case "easy":
         this.setState({
           tableDecks: [
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) }
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) }
           ],
           drawDeck: shuffleDecks.splice(0, 30),
           playerDeck: shuffleDecks.splice(0, 1)
@@ -186,12 +195,12 @@ export default class Game extends React.Component {
   };
 
   gameLost = () => {
-    this.getGameTime();
+    let time = this.getGameTime();
+    console.log(time)
     this.postGameStats("loss");
+    this.props.history.replace("/profile")
     return (
-      <div>
-        <h1 id="gameLose">Oh no!</h1>
-      </div>
+      null
     );
   };
 
@@ -199,14 +208,15 @@ export default class Game extends React.Component {
     const gameTime = this.state.timer;
     setTimeout(() => {
       clearInterval(this.timerInterval);
-      console.log(gameTime);
     }, 500);
     return gameTime;
   };
 
   postGameStats = result => {
-    // const time = this.state.timer
     let time = this.getGameTime();
+    console.log(time)
+    let user = Auth.getProfile()
+    let mode = this.state.mode
     fetch("http://localhost:3000/api/v1/postgame", {
       method: "post",
       headers: {
@@ -214,9 +224,10 @@ export default class Game extends React.Component {
         Accept: "application/json"
       },
       body: JSON.stringify({
-        user_id: 1, //need to add actual userId with trung from localStorage
-        game_score: result, //this is good
-        game_time: time //need to use timer state or other game time state for this to post
+        user_id: user.user_id,
+        game_score: result,
+        game_time: time,
+        game_mode: mode
       })
     });
   };
@@ -238,12 +249,12 @@ export default class Game extends React.Component {
         </div>
       );
     } else if (gameDone) {
-      return this.gameFinished();
+      return this.gameFinished(); //this still posts twice as a win, loss is working fine
     } else if (this.state.gameEnded) {
       return this.gameLost();
     } else {
       return (
-        <div>
+        <div id='game'>
           <div id="gameTimer">{this.timer()}</div>
           <TableDecks
             decks={this.state.tableDecks}
@@ -262,9 +273,9 @@ export default class Game extends React.Component {
           </div>
           <button
             id="endGame"
-            onClick={() => this.setState({ gameEnded: true })}
+            onClick={() => { this.setState({ gameEnded: true }) }}
           >
-            Womp womp
+            I give up!
           </button>
         </div>
       );
