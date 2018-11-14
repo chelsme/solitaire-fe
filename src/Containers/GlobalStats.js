@@ -52,7 +52,7 @@ export default class GlobalStats extends React.Component {
 
   displayMediumWins = () => {
     const mWins = this.state.stats.filter(
-      s => s.game_mode === "easy" && s.game_score === "win"
+      s => s.game_mode === "medium" && s.game_score === "win"
     );
     const mediumWinsObj = mWins.reduce(function(allWins, win) {
       if (win.user.username in allWins) {
@@ -79,7 +79,7 @@ export default class GlobalStats extends React.Component {
 
   displayHardWins = () => {
     const hWins = this.state.stats.filter(
-      s => s.game_mode === "easy" && s.game_score === "win"
+      s => s.game_mode === "hard" && s.game_score === "win"
     );
     const hWinsObj = hWins.reduce(function(allWins, win) {
       if (win.user.username in allWins) {
