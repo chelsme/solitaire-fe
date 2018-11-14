@@ -7,13 +7,13 @@ export default class Profile extends React.Component {
   };
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/v1/games")
+    fetch("https://skull-solitaire-be.herokuapp.com/api/v1/games")
       .then(resp => resp.json())
       .then(stats => {
         const tempStats = stats.filter(
           stat => stat.user.id === Auth.getProfile().user_id
         );
-        const userStats = tempStats.sort(function(a, b) {
+        const userStats = tempStats.sort(function (a, b) {
           return parseInt(a.game_time) - parseInt(b.game_time);
         });
         this.setState({ userStats });
@@ -38,7 +38,7 @@ export default class Profile extends React.Component {
             Fastest Time:{" "}
             {userStats.length > 0
               ? userStats.find(s => s.game_score === "win").game_time +
-                " seconds"
+              " seconds"
               : null}
           </p>
         </div>

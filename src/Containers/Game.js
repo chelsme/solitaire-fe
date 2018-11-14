@@ -39,7 +39,7 @@ export default class Game extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/v1/cards")
+    fetch("https://skull-solitaire-be.herokuapp.com/api/v1/cards")
       .then(resp => resp.json())
       .then(data => {
         this.setState({
@@ -217,7 +217,7 @@ export default class Game extends React.Component {
     console.log(time)
     let user = Auth.getProfile()
     let mode = this.state.mode
-    fetch("http://localhost:3000/api/v1/postgame", {
+    fetch("https://skull-solitaire-be.herokuapp.com/api/v1/postgame", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

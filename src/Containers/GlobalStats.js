@@ -7,16 +7,16 @@ export default class GlobalStats extends React.Component {
   };
 
   componentDidMount() {
-    fetch("http://localhost:3000/api/v1/games")
+    fetch("https://skull-solitaire-be.herokuapp.com/api/v1/games")
       .then(resp => resp.json())
       .then(sdata => {
-        const stats = sdata.sort(function(a, b) {
+        const stats = sdata.sort(function (a, b) {
           return parseInt(a.game_time) - parseInt(b.game_time);
         });
         this.setState({ stats });
       });
     setTimeout(
-      function() {
+      function () {
         this.setState({ render: true });
       }.bind(this),
       1000
@@ -27,7 +27,7 @@ export default class GlobalStats extends React.Component {
     const eWins = this.state.stats.filter(
       s => s.game_mode === "easy" && s.game_score === "win"
     );
-    const easyWinObj = eWins.reduce(function(allWins, win) {
+    const easyWinObj = eWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -54,7 +54,7 @@ export default class GlobalStats extends React.Component {
     const mWins = this.state.stats.filter(
       s => s.game_mode === "medium" && s.game_score === "win"
     );
-    const mediumWinsObj = mWins.reduce(function(allWins, win) {
+    const mediumWinsObj = mWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -81,7 +81,7 @@ export default class GlobalStats extends React.Component {
     const hWins = this.state.stats.filter(
       s => s.game_mode === "hard" && s.game_score === "win"
     );
-    const hWinsObj = hWins.reduce(function(allWins, win) {
+    const hWinsObj = hWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
