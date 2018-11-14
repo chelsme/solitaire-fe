@@ -10,13 +10,13 @@ export default class GlobalStats extends React.Component {
     fetch("http://localhost:3000/api/v1/games")
       .then(resp => resp.json())
       .then(sdata => {
-        const stats = sdata.sort(function(a, b) {
+        const stats = sdata.sort(function (a, b) {
           return parseInt(a.game_time) - parseInt(b.game_time);
         });
         this.setState({ stats });
       });
     setTimeout(
-      function() {
+      function () {
         this.setState({ render: true });
       }.bind(this),
       1000
@@ -27,7 +27,7 @@ export default class GlobalStats extends React.Component {
     const eWins = this.state.stats.filter(
       s => s.game_mode === "easy" && s.game_score === "win"
     );
-    const easyWinObj = eWins.reduce(function(allWins, win) {
+    const easyWinObj = eWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -54,7 +54,7 @@ export default class GlobalStats extends React.Component {
     const mWins = this.state.stats.filter(
       s => s.game_mode === "medium" && s.game_score === "win"
     );
-    const mediumWinsObj = mWins.reduce(function(allWins, win) {
+    const mediumWinsObj = mWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -81,7 +81,7 @@ export default class GlobalStats extends React.Component {
     const hWins = this.state.stats.filter(
       s => s.game_mode === "hard" && s.game_score === "win"
     );
-    const hWinsObj = hWins.reduce(function(allWins, win) {
+    const hWinsObj = hWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -115,7 +115,6 @@ export default class GlobalStats extends React.Component {
       return (
         <div>
           <h3>Leaderboard Stats</h3>
-<<<<<<< HEAD
           <div className='statRow'>
             <ol className="statsList">
               <lh><h4>Fastest Time: Easy</h4></lh>
@@ -162,50 +161,6 @@ export default class GlobalStats extends React.Component {
               {this.displayHardWins()}
             </ol>
           </div>
-=======
-          <ol className="statsList">
-            <lh>Fastest Time: Easy</lh>
-            {eStats.map(s => {
-              return (
-                <li id="statsListItem">
-                  {s.user.username} - {s.game_time} sec.
-                </li>
-              );
-            })}
-          </ol>
-          <ol className="statsList">
-            <lh>Fastest Time: Medium</lh>
-            {mStats.map(s => {
-              return (
-                <li className="statsList">
-                  {s.user.username} - {s.game_time} sec.
-                </li>
-              );
-            })}
-          </ol>
-          <ol className="statsList">
-            <lh>Fastest Time: Hard</lh>
-            {hStats.map(s => {
-              return (
-                <li className="statsList">
-                  {s.user.username} - {s.game_time} sec.
-                </li>
-              );
-            })}
-          </ol>
-          <ol className="statsList">
-            <lh>Most Wins: Easy</lh>
-            {this.displayEasyWins()}
-          </ol>
-          <ol className="statsList">
-            <lh>Most Wins: Medium</lh>
-            {this.displayMediumWins()}
-          </ol>
-          <ol className="statsList">
-            <lh>Most Wins: Hard</lh>
-            {this.displayHardWins()}
-          </ol>
->>>>>>> 907f9d12f255219ded214b6f4e83b84eeb0e2c97
         </div>
       );
     } else {
