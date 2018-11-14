@@ -174,7 +174,7 @@ export default class Game extends React.Component {
 
   gameFinished = () => {
     this.getGameTime();
-    this.postGameStats("win");
+    setTimeout(() => { this.postGameStats("win") }, 500)
     return (
       <div>
         <h1 id="gameWin">Winner!</h1>
@@ -216,8 +216,8 @@ export default class Game extends React.Component {
         Accept: "application/json"
       },
       body: JSON.stringify({
-        user_id: user.user_id, 
-        game_score: result, 
+        user_id: user.user_id,
+        game_score: result,
         game_time: time,
         game_mode: mode
       })
@@ -265,7 +265,7 @@ export default class Game extends React.Component {
           </div>
           <button
             id="endGame"
-            onClick={() => this.setState({ gameEnded: true })}
+            onClick={() => { this.setState({ gameEnded: true }) }}
           >
             I give up!
           </button>
