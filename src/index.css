@@ -184,11 +184,6 @@ input {
   right: 80px;
 }
 
-#statsList {
-  float: left;
-  font-size: 28px;
-}
-
 .center {
   text-align: center;
 }
@@ -219,6 +214,33 @@ button:focus {
   outline: none;
 }
 
-lh {
-  float: left;
+.statRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+ol {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+
+lh h4 {
+  margin: 5px;
+  text-decoration: underline;
+}
+
+ol li {
+  font-size: 40px;
+  margin: 0;
+  margin-left: 60px;
+}
+
+h3 {
+  margin-left: 40px;
+}
+
+.mode h3 {
+  margin: 50px auto;
 }
