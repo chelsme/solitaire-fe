@@ -10,13 +10,13 @@ export default class GlobalStats extends React.Component {
     fetch("http://localhost:3000/api/v1/games")
       .then(resp => resp.json())
       .then(sdata => {
-        const stats = sdata.sort(function (a, b) {
+        const stats = sdata.sort(function(a, b) {
           return parseInt(a.game_time) - parseInt(b.game_time);
         });
         this.setState({ stats });
       });
     setTimeout(
-      function () {
+      function() {
         this.setState({ render: true });
       }.bind(this),
       1000
@@ -27,7 +27,7 @@ export default class GlobalStats extends React.Component {
     const eWins = this.state.stats.filter(
       s => s.game_mode === "easy" && s.game_score === "win"
     );
-    const easyWinObj = eWins.reduce(function (allWins, win) {
+    const easyWinObj = eWins.reduce(function(allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -54,7 +54,7 @@ export default class GlobalStats extends React.Component {
     const mWins = this.state.stats.filter(
       s => s.game_mode === "medium" && s.game_score === "win"
     );
-    const mediumWinsObj = mWins.reduce(function (allWins, win) {
+    const mediumWinsObj = mWins.reduce(function(allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -81,7 +81,7 @@ export default class GlobalStats extends React.Component {
     const hWins = this.state.stats.filter(
       s => s.game_mode === "hard" && s.game_score === "win"
     );
-    const hWinsObj = hWins.reduce(function (allWins, win) {
+    const hWinsObj = hWins.reduce(function(allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -107,18 +107,24 @@ export default class GlobalStats extends React.Component {
   render() {
     const { stats } = this.state;
     if (this.state.render) {
-      const eStats = [...stats].filter(s => s.game_mode === "easy").slice(0, 3);
-      const mStats = [...stats]
-        .filter(s => s.game_mode === "medium")
+      const eStats = [...stats]
+        .filter(s => s.game_mode === "easy" && s.game_score === "win")
         .slice(0, 3);
-      const hStats = [...stats].filter(s => s.game_mode === "hard").slice(0, 3);
+      const mStats = [...stats]
+        .filter(s => s.game_mode === "medium" && s.game_score === "win")
+        .slice(0, 3);
+      const hStats = [...stats]
+        .filter(s => s.game_mode === "hard" && s.game_score === "win")
+        .slice(0, 3);
       return (
         <div>
           <h3>Leaderboard Stats</h3>
-          <div className='statRow'>
+          <div className="statRow">
             <ol className="statsList">
-              <lh><h4>Fastest Time: Easy</h4></lh>
-              {eStats.map((s) => {
+              <lh>
+                <h4>Fastest Time: Easy</h4>
+              </lh>
+              {eStats.map(s => {
                 return (
                   <li id="statsListItem">
                     {s.user.username} - {s.game_time} sec.
@@ -127,8 +133,10 @@ export default class GlobalStats extends React.Component {
               })}
             </ol>
             <ol className="statsList">
-              <lh><h4>Fastest Time: Medium</h4></lh>
-              {mStats.map((s) => {
+              <lh>
+                <h4>Fastest Time: Medium</h4>
+              </lh>
+              {mStats.map(s => {
                 return (
                   <li className="statsList">
                     {s.user.username} - {s.game_time} sec.
@@ -137,8 +145,10 @@ export default class GlobalStats extends React.Component {
               })}
             </ol>
             <ol className="statsList">
-              <lh><h4>Fastest Time: Hard</h4></lh>
-              {hStats.map((s) => {
+              <lh>
+                <h4>Fastest Time: Hard</h4>
+              </lh>
+              {hStats.map(s => {
                 return (
                   <li className="statsList">
                     {s.user.username} - {s.game_time} sec.
@@ -147,17 +157,23 @@ export default class GlobalStats extends React.Component {
               })}
             </ol>
           </div>
-          <div className='statRow'>
+          <div className="statRow">
             <ol className="statsList">
-              <lh><h4>Most Wins: Easy</h4></lh>
+              <lh>
+                <h4>Most Wins: Easy</h4>
+              </lh>
               {this.displayEasyWins()}
             </ol>
             <ol className="statsList">
-              <lh><h4>Most Wins: Medium</h4></lh>
+              <lh>
+                <h4>Most Wins: Medium</h4>
+              </lh>
               {this.displayMediumWins()}
             </ol>
             <ol className="statsList">
-              <lh><h4>Most Wins: Hard</h4></lh>
+              <lh>
+                <h4>Most Wins: Hard</h4>
+              </lh>
               {this.displayHardWins()}
             </ol>
           </div>
