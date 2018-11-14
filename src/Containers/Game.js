@@ -53,7 +53,7 @@ export default class Game extends React.Component {
   }
 
   initDecksState = () => {
-    const shuffleDecks = [...this.state.deck].sort(function() {
+    const shuffleDecks = [...this.state.deck].sort(function () {
       return 0.5 - Math.random();
     });
     const mode = this.state.mode;
@@ -91,13 +91,13 @@ export default class Game extends React.Component {
       case "easy":
         this.setState({
           tableDecks: [
-            { value: shuffleDecks.splice(0, 1) },
-            { value: shuffleDecks.splice(0, 1) },
-            { value: shuffleDecks.splice(0, 1) },
-            { value: shuffleDecks.splice(0, 1) },
-            { value: shuffleDecks.splice(0, 1) },
-            { value: shuffleDecks.splice(0, 1) },
-            { value: shuffleDecks.splice(0, 1) }
+            { value: shuffleDecks.splice(0, 3) },
+            { value: shuffleDecks.splice(0, 3) },
+            { value: shuffleDecks.splice(0, 3) },
+            { value: shuffleDecks.splice(0, 3) },
+            { value: shuffleDecks.splice(0, 3) },
+            { value: shuffleDecks.splice(0, 3) },
+            { value: shuffleDecks.splice(0, 3) }
           ],
           drawDeck: shuffleDecks.splice(0, 30),
           playerDeck: shuffleDecks.splice(0, 1)
@@ -126,7 +126,7 @@ export default class Game extends React.Component {
       let tableDecks = [...this.state.tableDecks];
       tableDecks[id].value = select.slice(1);
 
-      this.setState({ tableDecks, playerDeck }, () => {});
+      this.setState({ tableDecks, playerDeck }, () => { });
     } else if (
       parseInt(select[0].value) === parseInt(playerDeck[0].value - 1) ||
       parseInt(select[0].value - 1) === parseInt(playerDeck[0].value)
@@ -135,7 +135,7 @@ export default class Game extends React.Component {
       let tableDecks = [...this.state.tableDecks];
       tableDecks[id].value = select.slice(1);
 
-      this.setState({ tableDecks, playerDeck }, () => {});
+      this.setState({ tableDecks, playerDeck }, () => { });
     } else if (
       (select[0].value == 13 && playerDeck[0].value == 1) ||
       (select[0].value == 1 && playerDeck[0].value == 13)
@@ -144,7 +144,7 @@ export default class Game extends React.Component {
       let tableDecks = [...this.state.tableDecks];
       tableDecks[id].value = select.slice(1);
 
-      this.setState({ tableDecks, playerDeck }, () => {});
+      this.setState({ tableDecks, playerDeck }, () => { });
     }
   };
 
@@ -153,14 +153,14 @@ export default class Game extends React.Component {
     playerDeck.unshift(selectedDrawCard);
     const drawDeck = [...this.state.drawDeck].slice(1);
 
-    this.setState({ playerDeck, drawDeck }, () => {});
+    this.setState({ playerDeck, drawDeck }, () => { });
   };
 
   wildCardClick = selectedWildCard => {
     let playerDeck = [...this.state.playerDeck];
     playerDeck.unshift(selectedWildCard);
     const wildDeck = [...this.state.wildDeck].slice(1);
-    this.setState({ playerDeck, wildDeck }, () => {});
+    this.setState({ playerDeck, wildDeck }, () => { });
   };
 
   timer = () => {
@@ -236,8 +236,8 @@ export default class Game extends React.Component {
     const gameDone =
       this.state.timer > 5
         ? !this.state.tableDecks.find(deck => {
-            return deck.value.length > 0;
-          })
+          return deck.value.length > 0;
+        })
         : false;
     if (this.state.mode === "") {
       return (
