@@ -15,7 +15,6 @@ import AuthService from "./Containers/AuthService";
 import bgmusic from "./images/bg.mp3";
 const bgmusicAudio = new Audio(bgmusic);
 const Auth = new AuthService();
-let isPlaying = false;
 
 const TogglePlayButton = () =>
   Auth.loggedIn() ? (
