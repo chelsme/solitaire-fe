@@ -10,7 +10,9 @@ export default class Profile extends React.Component {
     fetch("http://localhost:3000/api/v1/games")
       .then(resp => resp.json())
       .then(stats => {
-        const tempStats = stats.filter(stat => stat.user.id === 1); //change this 1 to localStorage userId
+        const tempStats = stats.filter(
+          stat => stat.user.id === Auth.getProfile().user_id
+        );
         const userStats = tempStats.sort(function(a, b) {
           return parseInt(a.game_time) - parseInt(b.game_time);
         });
@@ -20,7 +22,7 @@ export default class Profile extends React.Component {
 
   render() {
     const { userStats } = this.state;
-    return (
+    return Auth.loggedIn() ? (
       <div id="profile">
         <div id="stats">
           <h2>Stats</h2>
@@ -42,6 +44,6 @@ export default class Profile extends React.Component {
         </div>
         <img id="profileCards" src={require(`../images/cards.png`)} alt="no!" />
       </div>
-    );
+    ) : null;
   }
 }
