@@ -10,13 +10,13 @@ export default class GlobalStats extends React.Component {
     fetch("http://localhost:3000/api/v1/games")
       .then(resp => resp.json())
       .then(sdata => {
-        const stats = sdata.sort(function(a, b) {
+        const stats = sdata.sort(function (a, b) {
           return parseInt(a.game_time) - parseInt(b.game_time);
         });
         this.setState({ stats });
       });
     setTimeout(
-      function() {
+      function () {
         this.setState({ render: true });
       }.bind(this),
       1000
@@ -27,7 +27,7 @@ export default class GlobalStats extends React.Component {
     const eWins = this.state.stats.filter(
       s => s.game_mode === "easy" && s.game_score === "win"
     );
-    const easyWinObj = eWins.reduce(function(allWins, win) {
+    const easyWinObj = eWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -41,10 +41,10 @@ export default class GlobalStats extends React.Component {
     const sortArray = winsArray.sort((a, b) => {
       return b.wins - a.wins;
     });
-    return sortArray.map((obj, i) => {
+    return sortArray.map((obj) => {
       return (
         <li>
-          {i + 1}. {obj.name} - {obj.wins} win(s).
+          {obj.name} - {obj.wins} win(s).
         </li>
       );
     });
@@ -54,7 +54,7 @@ export default class GlobalStats extends React.Component {
     const mWins = this.state.stats.filter(
       s => s.game_mode === "easy" && s.game_score === "win"
     );
-    const mediumWinsObj = mWins.reduce(function(allWins, win) {
+    const mediumWinsObj = mWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -68,10 +68,10 @@ export default class GlobalStats extends React.Component {
     const sortArray = winsArray.sort((a, b) => {
       return b.wins - a.wins;
     });
-    return sortArray.map((obj, i) => {
+    return sortArray.map((obj) => {
       return (
         <li>
-          {i + 1}. {obj.name} - {obj.wins} win(s).
+          {obj.name} - {obj.wins} win(s).
         </li>
       );
     });
@@ -81,7 +81,7 @@ export default class GlobalStats extends React.Component {
     const hWins = this.state.stats.filter(
       s => s.game_mode === "easy" && s.game_score === "win"
     );
-    const hWinsObj = hWins.reduce(function(allWins, win) {
+    const hWinsObj = hWins.reduce(function (allWins, win) {
       if (win.user.username in allWins) {
         allWins[win.user.username]++;
       } else {
@@ -95,10 +95,10 @@ export default class GlobalStats extends React.Component {
     const sortArray = winsArray.sort((a, b) => {
       return b.wins - a.wins;
     });
-    return sortArray.map((obj, i) => {
+    return sortArray.map((obj) => {
       return (
         <li>
-          {i + 1}. {obj.name} - {obj.wins} win(s).
+          {obj.name} - {obj.wins} win(s).
         </li>
       );
     });
@@ -115,48 +115,48 @@ export default class GlobalStats extends React.Component {
       return (
         <div>
           <h3>Leaderboard Stats</h3>
-          <ul id="statsList">
+          <ol className="statsList">
             <lh>Fastest Time: Easy</lh>
-            {eStats.map((s, i) => {
+            {eStats.map((s) => {
               return (
-                <li id="statsList">
-                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                <li id="statsListItem">
+                  {s.user.username} - {s.game_time} sec.
                 </li>
               );
             })}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Fastest Time: Medium</lh>
-            {mStats.map((s, i) => {
+            {mStats.map((s) => {
               return (
-                <li id="statsList">
-                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                <li className="statsList">
+                  {s.user.username} - {s.game_time} sec.
                 </li>
               );
             })}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Fastest Time: Hard</lh>
-            {hStats.map((s, i) => {
+            {hStats.map((s) => {
               return (
-                <li id="statsList">
-                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                <li className="statsList">
+                  {s.user.username} - {s.game_time} sec.
                 </li>
               );
             })}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Most Wins: Easy</lh>
             {this.displayEasyWins()}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Most Wins: Medium</lh>
             {this.displayMediumWins()}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Most Wins: Hard</lh>
             {this.displayHardWins()}
-          </ul>
+          </ol>
         </div>
       );
     } else {

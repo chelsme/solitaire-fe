@@ -218,3 +218,7 @@ input {
 button:focus {
   outline: none;
 }
+
+lh {
+  float: left;
+}
