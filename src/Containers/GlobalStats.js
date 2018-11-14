@@ -107,11 +107,11 @@ export default class GlobalStats extends React.Component {
   render() {
     const { stats } = this.state;
     if (this.state.render) {
-      const eStats = [...stats].filter(s => s.game_mode === "easy").slice(0, 5);
+      const eStats = [...stats].filter(s => s.game_mode === "easy").slice(0, 3);
       const mStats = [...stats]
         .filter(s => s.game_mode === "medium")
-        .slice(0, 5);
-      const hStats = [...stats].filter(s => s.game_mode === "hard").slice(0, 5);
+        .slice(0, 3);
+      const hStats = [...stats].filter(s => s.game_mode === "hard").slice(0, 3);
       return (
         <div>
           <h3>Leaderboard Stats</h3>
