@@ -1,21 +1,17 @@
 import React from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import Game from "./Containers/Game";
 import Login from "./Containers/Login";
 import Profile from "./Containers/Profile";
 import SignUp from "./Containers/SignUp";
 import GlobalStats from "./Containers/GlobalStats";
-import Logout from "./Containers/Logout";
 import PrivateRoute from "./Containers/PrivateRoute";
-// import withAuth from "./Containers/withAuth";
-// const Auth = new AuthService();
+
+const Logout = () => {
+  localStorage.removeItem("token-id");
+  this.props.history.replace("/");
+};
 
 function App() {
   return (
