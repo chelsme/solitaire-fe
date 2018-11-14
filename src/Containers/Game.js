@@ -3,33 +3,40 @@ import TableDecks from "./TableDecks";
 import DrawDeck from "../Components/DrawDeck";
 import PlayerDeck from "../Components/PlayerDeck";
 import WildDeck from "../Components/WildDeck";
-import AuthService from "./AuthService"
+import AuthService from "./AuthService";
+import { throttle } from "lodash";
 
 const Auth = new AuthService();
 export default class Game extends React.Component {
-  state = {
-    wildDeck: [
-      {
-        suit: "WILD",
-        value: "wild",
-        code: "wild",
-        image: require("../images/wild.png")
-      },
-      {
-        suit: "WILD",
-        value: "wild",
-        code: "wild",
-        image: require("../images/wild.png")
-      }
-    ],
-    deck: [],
-    tableDecks: [],
-    drawDeck: [],
-    playerDeck: [],
-    timer: 0,
-    mode: "",
-    gameEnded: false
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      wildDeck: [
+        {
+          suit: "WILD",
+          value: "wild",
+          code: "wild",
+          image: require("../images/wild.png")
+        },
+        {
+          suit: "WILD",
+          value: "wild",
+          code: "wild",
+          image: require("../images/wild.png")
+        }
+      ],
+      deck: [],
+      tableDecks: [],
+      drawDeck: [],
+      playerDeck: [],
+      timer: 0,
+      mode: "",
+      gameEnded: false
+    }
+
+    this.gameFinished = throttle(this.gameFinished, 1000, { trailing: false });
+  }
 
   componentDidMount() {
     fetch("http://localhost:3000/api/v1/cards")
@@ -84,13 +91,13 @@ export default class Game extends React.Component {
       case "easy":
         this.setState({
           tableDecks: [
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) },
-            { value: shuffleDecks.splice(0, 3) }
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) },
+            { value: shuffleDecks.splice(0, 1) }
           ],
           drawDeck: shuffleDecks.splice(0, 30),
           playerDeck: shuffleDecks.splice(0, 1)
