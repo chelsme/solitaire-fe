@@ -17,18 +17,14 @@ const Auth = new AuthService();
 
 const AuthButton = withRouter(({ history }) =>
   Auth.loggedIn() ? (
-    <p>
-      <button
-        onClick={() => {
-          Auth.logout(() => history.push("/"));
-        }}
-      >
-        Sign out
-      </button>
-    </p>
-  ) : (
-    <p>Please log in..</p>
-  )
+    <button
+      onClick={() => {
+        Auth.logout(() => history.push("/"));
+      }}
+    >
+      Sign out
+    </button>
+  ) : (null)
 );
 
 function App() {
