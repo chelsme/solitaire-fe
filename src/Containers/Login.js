@@ -26,13 +26,38 @@ export default class Login extends React.Component {
   }
 
   handleChange = e => {
-    console.log(e.target.name, e.target.value);
+    // console.log(e.target.name, e.target.value);
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleSignUpRedirect = () => {
-    this.props.history.replace("/signup")
-  }
+  handleSignUp = e => {
+    e.preventDefault();
+    const username = this.state.username;
+    const password = this.state.password;
+
+    username &&
+      password &&
+      fetch("http://localhost:3000/api/v1/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify({
+          user: {
+            username,
+            password
+          }
+        })
+      })
+        .then(() => this.Auth.login(this.state.username, this.state.password))
+        .then(() => this.props.history.replace("/game"))
+        .catch(err => {
+          alert(err);
+          this.props.history.replace("/");
+        });
+  };
+
   render() {
     return (
       <div className="center">
@@ -54,7 +79,7 @@ export default class Login extends React.Component {
             />
             <button>Login</button>
           </form>
-          <button onClick={this.handleSignUpRedirect}>Sign Up</button>
+          <button onClick={this.handleSignUp}>Sign Up</button>
         </div>
       </div>
     );
