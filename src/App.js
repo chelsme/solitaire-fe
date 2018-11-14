@@ -21,7 +21,7 @@ const TogglePlayButton = () =>
   Auth.loggedIn() ? (
     <button
       onClick={() => {
-        !isPlaying ? bgmusicAudio.play() : bgmusicAudio.play();
+        bgmusicAudio.paused ? bgmusicAudio.play() : bgmusicAudio.pause();
       }}
     >
       Music
