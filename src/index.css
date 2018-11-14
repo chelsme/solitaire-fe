@@ -209,3 +209,7 @@ input {
   height: 800px;
   cursor: grab;
 }
+
+button:focus {
+  outline: none;
+}
