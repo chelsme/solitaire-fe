@@ -37,6 +37,7 @@ nav button {
   color: antiquewhite;
   width: 215px !important;
   text-align: left;
+  cursor:pointer;
 }
 
 code {
@@ -198,4 +199,13 @@ input {
   height: 35%;
   padding-top: 5%;
   float: left;
+}
+
+.topCard, #playerDeck, #drawDeck, #wildDeck {
+  cursor: grabbing;
+}
+
+#game {
+  height: 800px;
+  cursor: grab;
 }

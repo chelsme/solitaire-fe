@@ -243,7 +243,7 @@ export default class Game extends React.Component {
       return this.gameLost();
     } else {
       return (
-        <div>
+        <div id='game'>
           <div id="gameTimer">{this.timer()}</div>
           <TableDecks
             decks={this.state.tableDecks}
