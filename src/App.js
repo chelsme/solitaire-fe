@@ -9,11 +9,32 @@ import {
 import Game from "./Containers/Game";
 import Login from "./Containers/Login";
 import Profile from "./Containers/Profile";
-import SignUp from "./Containers/SignUp";
 import GlobalStats from "./Containers/GlobalStats";
 import PrivateRoute from "./Containers/PrivateRoute";
 import AuthService from "./Containers/AuthService";
+import bgmusic from "./images/bg.mp3";
+const bgmusicAudio = new Audio(bgmusic);
 const Auth = new AuthService();
+let isPlaying = false;
+
+const TogglePlayButton = () =>
+  Auth.loggedIn() ? (
+    <button
+      onClick={() => {
+        !isPlaying ? bgmusicAudio.play() : bgmusicAudio.play();
+      }}
+    >
+      Music
+    </button>
+  ) : (
+    <button
+      onClick={() => {
+        bgmusicAudio.pause();
+      }}
+    >
+      Music
+    </button>
+  );
 
 const AuthButton = withRouter(({ history }) =>
   Auth.loggedIn() ? (
@@ -24,7 +45,7 @@ const AuthButton = withRouter(({ history }) =>
     >
       Sign out
     </button>
-  ) : (null)
+  ) : null
 );
 
 function App() {
@@ -48,10 +69,12 @@ function App() {
             <li>
               <AuthButton />
             </li>
+            <li>
+              <TogglePlayButton />
+            </li>
           </ul>
         </nav>
         <Route exact path="/" component={Login} />
-        <Route exact path="/signup" component={SignUp} />
         <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/game" component={Game} />
         <PrivateRoute exact path="/stats" component={GlobalStats} />
