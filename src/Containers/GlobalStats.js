@@ -42,11 +42,11 @@ export default class GlobalStats extends React.Component {
       return b.wins - a.wins;
     });
     return sortArray.map((obj, i) => {
-      return (
+      return i < 3 ? (
         <li>
           {i + 1}. {obj.name} - {obj.wins} win(s).
         </li>
-      );
+      ) : null;
     });
   };
 
@@ -69,11 +69,11 @@ export default class GlobalStats extends React.Component {
       return b.wins - a.wins;
     });
     return sortArray.map((obj, i) => {
-      return (
+      return i < 3 ? (
         <li>
           {i + 1}. {obj.name} - {obj.wins} win(s).
         </li>
-      );
+      ) : null;
     });
   };
 
@@ -96,11 +96,11 @@ export default class GlobalStats extends React.Component {
       return b.wins - a.wins;
     });
     return sortArray.map((obj, i) => {
-      return (
+      return i < 3 ? (
         <li>
           {i + 1}. {obj.name} - {obj.wins} win(s).
         </li>
-      );
+      ) : null;
     });
   };
 
