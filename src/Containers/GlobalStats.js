@@ -1,80 +1,166 @@
-import React from 'react'
+import React from "react";
 
 export default class GlobalStats extends React.Component {
-    state = {
-        stats: [],
-        render: false
-    }
-    
-    componentDidMount() {
-        fetch("http://localhost:3000/api/v1/games")
-        .then(resp => resp.json())
-        .then(sdata => {
-            const stats = sdata.sort(function(a, b) {return parseInt(a.game_time) - parseInt(b.game_time)}) 
-            this.setState({ stats })
-        })
-        setTimeout(function() { 
-            this.setState({render: true}) 
-        }.bind(this), 1000)
-    }
-    
-    displayMedium = () => {
-        const stats = [...this.state.stats].filter(s => s.game_mode === 'medium').slice(0, 5)
-        stats.map((s, i)=> {
-            return <p>`${i+1}. ${s.user.id}- ${s.game_time} seconds`</p>
-        })
-    }
-    
-    render() {
-        const { stats } = this.state
-        let renderContainer = false 
-        if(this.state.render) {
-            const eStats = [...this.state.stats].filter(s => s.game_mode === 'easy').slice(0, 5)
-            const mStats = [...this.state.stats].filter(s => s.game_mode === 'medium').slice(0, 5)
-            const hStats = [...this.state.stats].filter(s => s.game_mode === 'hard').slice(0, 5)
-            return (
-                <div>
-                    <h2>Leaderboard Stats</h2>
-                    <h3>Easy Mode</h3>
-                        <div>
-                            <ul id='statsList'>
-                                {eStats.map((s, i)=> {
-                                    return <li>{i+1}. user{s.user.id} - {s.game_time} seconds</li>
-                                })}
-                            </ul>
-                        </div>
-                    <h3>Medium Mode</h3>
-                        <div>
-                            <ul id='statsList'>
-                                {mStats.map((s, i)=> {
-                                    return <li>{i+1}. user{s.user.id} - {s.game_time} seconds</li>
-                                })}
-                            </ul>
-                        </div>
-                    <h3>Hard Mode</h3>
-                        <div>
-                            <ul id='statsList'>
-                                {hStats.map((s, i)=> {
-                                    return <li>{i+1}. user{s.user.id} - {s.game_time} seconds</li>
-                                })}
-                            </ul>
-                        </div>
-                </div>
-            )
-        } else {
-            return (
-                <div></div>
-            )
-        }
-    }
-}
+  state = {
+    stats: [],
+    render: false
+  };
 
-{/* <p>Games Won: { [...stats].filter(s => s.game_score === 'win').length }</p>
-                        <p>Games Lost: { [...stats].filter(s => s.game_score === 'loss').length }</p>
-                        <p>Fastest Time: { stats.length > 0 
-                            ? 
-                            (stats.find(s => s.game_score === 'win').game_time + ' seconds')
-                            : 
-                            null 
-                            }
-                        </p> */}
+  componentDidMount() {
+    fetch("http://localhost:3000/api/v1/games")
+      .then(resp => resp.json())
+      .then(sdata => {
+        const stats = sdata.sort(function(a, b) {
+          return parseInt(a.game_time) - parseInt(b.game_time);
+        });
+        this.setState({ stats });
+      });
+    setTimeout(
+      function() {
+        this.setState({ render: true });
+      }.bind(this),
+      1000
+    );
+  }
+
+  displayEasyWins = () => {
+    const eWins = this.state.stats.filter(
+      s => s.game_mode === "easy" && s.game_score === "win"
+    );
+    const easyWinObj = eWins.reduce(function(allWins, win) {
+      if (win.user.username in allWins) {
+        allWins[win.user.username]++;
+      } else {
+        allWins[win.user.username] = 1;
+      }
+      return allWins;
+    }, {});
+    const winsArray = Object.keys(easyWinObj).map((key, i) => {
+      return { name: key, wins: Object.values(easyWinObj)[i] };
+    });
+    const sortArray = winsArray.sort((a, b) => {
+      return b.wins - a.wins;
+    });
+    return sortArray.map((obj, i) => {
+      return (
+        <li>
+          {i + 1}. {obj.name} - {obj.wins} win(s).
+        </li>
+      );
+    });
+  };
+
+  displayMediumWins = () => {
+    const mWins = this.state.stats.filter(
+      s => s.game_mode === "easy" && s.game_score === "win"
+    );
+    const mediumWinsObj = mWins.reduce(function(allWins, win) {
+      if (win.user.username in allWins) {
+        allWins[win.user.username]++;
+      } else {
+        allWins[win.user.username] = 1;
+      }
+      return allWins;
+    }, {});
+    const winsArray = Object.keys(mediumWinsObj).map((key, i) => {
+      return { name: key, wins: Object.values(mediumWinsObj)[i] };
+    });
+    const sortArray = winsArray.sort((a, b) => {
+      return b.wins - a.wins;
+    });
+    return sortArray.map((obj, i) => {
+      return (
+        <li>
+          {i + 1}. {obj.name} - {obj.wins} win(s).
+        </li>
+      );
+    });
+  };
+
+  displayHardWins = () => {
+    const hWins = this.state.stats.filter(
+      s => s.game_mode === "easy" && s.game_score === "win"
+    );
+    const hWinsObj = hWins.reduce(function(allWins, win) {
+      if (win.user.username in allWins) {
+        allWins[win.user.username]++;
+      } else {
+        allWins[win.user.username] = 1;
+      }
+      return allWins;
+    }, {});
+    const winsArray = Object.keys(hWinsObj).map((key, i) => {
+      return { name: key, wins: Object.values(hWinsObj)[i] };
+    });
+    const sortArray = winsArray.sort((a, b) => {
+      return b.wins - a.wins;
+    });
+    return sortArray.map((obj, i) => {
+      return (
+        <li>
+          {i + 1}. {obj.name} - {obj.wins} win(s).
+        </li>
+      );
+    });
+  };
+
+  render() {
+    const { stats } = this.state;
+    if (this.state.render) {
+      const eStats = [...stats].filter(s => s.game_mode === "easy").slice(0, 5);
+      const mStats = [...stats]
+        .filter(s => s.game_mode === "medium")
+        .slice(0, 5);
+      const hStats = [...stats].filter(s => s.game_mode === "hard").slice(0, 5);
+      return (
+        <div>
+          <h3>Leaderboard Stats</h3>
+          <ul id="statsList">
+            <lh>Fastest Time: Easy</lh>
+            {eStats.map((s, i) => {
+              return (
+                <li id="statsList">
+                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                </li>
+              );
+            })}
+          </ul>
+          <ul id="statsList">
+            <lh>Fastest Time: Medium</lh>
+            {mStats.map((s, i) => {
+              return (
+                <li id="statsList">
+                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                </li>
+              );
+            })}
+          </ul>
+          <ul id="statsList">
+            <lh>Fastest Time: Hard</lh>
+            {hStats.map((s, i) => {
+              return (
+                <li id="statsList">
+                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                </li>
+              );
+            })}
+          </ul>
+          <ul id="statsList">
+            <lh>Most Wins: Easy</lh>
+            {this.displayEasyWins()}
+          </ul>
+          <ul id="statsList">
+            <lh>Most Wins: Medium</lh>
+            {this.displayMediumWins()}
+          </ul>
+          <ul id="statsList">
+            <lh>Most Wins: Hard</lh>
+            {this.displayHardWins()}
+          </ul>
+        </div>
+      );
+    } else {
+      return <div />;
+    }
+  }
+}
