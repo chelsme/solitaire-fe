@@ -44,7 +44,7 @@ export default class GlobalStats extends React.Component {
     return sortArray.map((obj, i) => {
       return i < 3 ? (
         <li>
-          {i + 1}. {obj.name} - {obj.wins} win(s).
+          {obj.name} - {obj.wins} win(s).
         </li>
       ) : null;
     });
@@ -71,7 +71,7 @@ export default class GlobalStats extends React.Component {
     return sortArray.map((obj, i) => {
       return i < 3 ? (
         <li>
-          {i + 1}. {obj.name} - {obj.wins} win(s).
+          {obj.name} - {obj.wins} win(s).
         </li>
       ) : null;
     });
@@ -98,7 +98,7 @@ export default class GlobalStats extends React.Component {
     return sortArray.map((obj, i) => {
       return i < 3 ? (
         <li>
-          {i + 1}. {obj.name} - {obj.wins} win(s).
+          {obj.name} - {obj.wins} win(s).
         </li>
       ) : null;
     });
@@ -115,48 +115,48 @@ export default class GlobalStats extends React.Component {
       return (
         <div>
           <h3>Leaderboard Stats</h3>
-          <ul id="statsList">
+          <ol className="statsList">
             <lh>Fastest Time: Easy</lh>
-            {eStats.map((s, i) => {
+            {eStats.map(s => {
               return (
-                <li id="statsList">
-                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                <li id="statsListItem">
+                  {s.user.username} - {s.game_time} sec.
                 </li>
               );
             })}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Fastest Time: Medium</lh>
-            {mStats.map((s, i) => {
+            {mStats.map(s => {
               return (
-                <li id="statsList">
-                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                <li className="statsList">
+                  {s.user.username} - {s.game_time} sec.
                 </li>
               );
             })}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Fastest Time: Hard</lh>
-            {hStats.map((s, i) => {
+            {hStats.map(s => {
               return (
-                <li id="statsList">
-                  {i + 1}. {s.user.username} - {s.game_time} sec.
+                <li className="statsList">
+                  {s.user.username} - {s.game_time} sec.
                 </li>
               );
             })}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Most Wins: Easy</lh>
             {this.displayEasyWins()}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Most Wins: Medium</lh>
             {this.displayMediumWins()}
-          </ul>
-          <ul id="statsList">
+          </ol>
+          <ol className="statsList">
             <lh>Most Wins: Hard</lh>
             {this.displayHardWins()}
-          </ul>
+          </ol>
         </div>
       );
     } else {
