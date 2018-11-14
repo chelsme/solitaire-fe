@@ -57,9 +57,10 @@ export default class AuthService {
     return localStorage.getItem("id_token");
   }
 
-  logout() {
+  logout(cb) {
     // Clear user token and profile data from localStorage
     localStorage.removeItem("id_token");
+    setTimeout(cb, 100);
   }
 
   getProfile() {

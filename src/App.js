@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  withRouter
+} from "react-router-dom";
 
 import Game from "./Containers/Game";
 import Login from "./Containers/Login";
@@ -7,11 +12,20 @@ import Profile from "./Containers/Profile";
 import SignUp from "./Containers/SignUp";
 import GlobalStats from "./Containers/GlobalStats";
 import PrivateRoute from "./Containers/PrivateRoute";
+import AuthService from "./Containers/AuthService";
+const Auth = new AuthService();
 
-const Logout = () => {
-  localStorage.removeItem("token-id");
-  this.props.history.replace("/");
-};
+const AuthButton = withRouter(({ history }) =>
+  Auth.loggedIn() ? (
+    <button
+      onClick={() => {
+        Auth.logout(() => history.push("/"));
+      }}
+    >
+      Sign out
+    </button>
+  ) : (null)
+);
 
 function App() {
   return (
@@ -32,7 +46,7 @@ function App() {
               <Link to="/stats">Leaderboard</Link>
             </li>
             <li>
-              <Link to="/logout">Logout</Link>
+              <AuthButton />
             </li>
           </ul>
         </nav>
@@ -41,7 +55,6 @@ function App() {
         <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/game" component={Game} />
         <PrivateRoute exact path="/stats" component={GlobalStats} />
-        <PrivateRoute exact path="/logout" component={Logout} />
       </div>
     </Router>
   );

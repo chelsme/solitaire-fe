@@ -10,8 +10,7 @@ export default class Profile extends React.Component {
     fetch("http://localhost:3000/api/v1/games")
       .then(resp => resp.json())
       .then(stats => {
-        const user = Auth.getProfile();
-        const tempStats = stats.filter(stat => stat.user.id === user.user_id);
+        const tempStats = stats.filter(stat => stat.user.id === 1); //change this 1 to localStorage userId
         const userStats = tempStats.sort(function(a, b) {
           return parseInt(a.game_time) - parseInt(b.game_time);
         });
@@ -22,21 +21,26 @@ export default class Profile extends React.Component {
   render() {
     const { userStats } = this.state;
     return (
-      <div>
-        <h2>Stats</h2>
-        <p>
-          Games Won: {[...userStats].filter(s => s.game_score === "win").length}
-        </p>
-        <p>
-          Games Lost:{" "}
-          {[...userStats].filter(s => s.game_score === "loss").length}
-        </p>
-        <p>
-          Fastest Time:{" "}
-          {userStats.length > 0
-            ? userStats.find(s => s.game_score === "win").game_time + " seconds"
-            : null}
-        </p>
+      <div id="profile">
+        <div id="stats">
+          <h2>Stats</h2>
+          <p>
+            Games Won:{" "}
+            {[...userStats].filter(s => s.game_score === "win").length}
+          </p>
+          <p>
+            Games Lost:{" "}
+            {[...userStats].filter(s => s.game_score === "loss").length}
+          </p>
+          <p>
+            Fastest Time:{" "}
+            {userStats.length > 0
+              ? userStats.find(s => s.game_score === "win").game_time +
+                " seconds"
+              : null}
+          </p>
+        </div>
+        <img id="profileCards" src={require(`../images/cards.png`)} alt="no!" />
       </div>
     );
   }

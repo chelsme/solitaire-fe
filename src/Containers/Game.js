@@ -190,10 +190,9 @@ export default class Game extends React.Component {
   gameLost = () => {
     this.getGameTime();
     this.postGameStats("loss");
+    this.props.history.replace("/profile")
     return (
-      <div>
-        <h1 id="gameLose">Oh no!</h1>
-      </div>
+      null
     );
   };
 
@@ -247,7 +246,7 @@ export default class Game extends React.Component {
       return this.gameLost();
     } else {
       return (
-        <div>
+        <div id='game'>
           <div id="gameTimer">{this.timer()}</div>
           <TableDecks
             decks={this.state.tableDecks}
@@ -268,7 +267,7 @@ export default class Game extends React.Component {
             id="endGame"
             onClick={() => this.setState({ gameEnded: true })}
           >
-            Womp womp
+            I give up!
           </button>
         </div>
       );
