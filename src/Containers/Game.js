@@ -174,7 +174,7 @@ export default class Game extends React.Component {
 
   gameFinished = () => {
     this.getGameTime();
-    setTimeout(() => { this.postGameStats("win") }, 500)
+    this.postGameStats("win");
     return (
       <div>
         <h1 id="gameWin">Winner!</h1>
@@ -188,7 +188,8 @@ export default class Game extends React.Component {
   };
 
   gameLost = () => {
-    this.getGameTime();
+    let time = this.getGameTime();
+    console.log(time)
     this.postGameStats("loss");
     this.props.history.replace("/profile")
     return (
@@ -200,13 +201,13 @@ export default class Game extends React.Component {
     const gameTime = this.state.timer;
     setTimeout(() => {
       clearInterval(this.timerInterval);
-      console.log(gameTime);
     }, 500);
     return gameTime;
   };
 
   postGameStats = result => {
     let time = this.getGameTime();
+    console.log(time)
     let user = Auth.getProfile()
     let mode = this.state.mode
     fetch("http://localhost:3000/api/v1/postgame", {
