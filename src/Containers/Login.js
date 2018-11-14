@@ -61,6 +61,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <div className="center">
+        <h1 id='title'>&#128128; Skull Solitaire</h1>
         <div className="form">
           <form onSubmit={this.handleSubmit}>
             <input

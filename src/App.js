@@ -23,17 +23,9 @@ const TogglePlayButton = () =>
         bgmusicAudio.paused ? bgmusicAudio.play() : bgmusicAudio.pause();
       }}
     >
-      Music
+      Music: On/Off
     </button>
-  ) : (
-    <button
-      onClick={() => {
-        bgmusicAudio.pause();
-      }}
-    >
-      Music
-    </button>
-  );
+  ) : (null);
 
 const AuthButton = withRouter(({ history }) =>
   Auth.loggedIn() ? (
@@ -68,11 +60,11 @@ function App() {
             <li>
               <AuthButton />
             </li>
-            <li>
-              <TogglePlayButton />
-            </li>
           </ul>
         </nav>
+        <div id='musicDiv'>
+          <TogglePlayButton />
+        </div>
         <Route exact path="/" component={Login} />
         <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/game" component={Game} />
